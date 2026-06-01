@@ -297,6 +297,12 @@ h2{font-size:1.375rem}
 <div class="tab" onclick="switchVocabTab(this,'weather')">天气</div>
 <div class="tab" onclick="switchVocabTab(this,'transport')">交通</div>
 <div class="tab" onclick="switchVocabTab(this,'job')">职业</div>
+<div class="tab" onclick="switchVocabTab(this,'daily')">日常</div>
+<div class="tab" onclick="switchVocabTab(this,'sports')">运动</div>
+<div class="tab" onclick="switchVocabTab(this,'nature')">自然</div>
+<div class="tab" onclick="switchVocabTab(this,'building')">建筑</div>
+<div class="tab" onclick="switchVocabTab(this,'emotion')">情感</div>
+<div class="tab" onclick="switchVocabTab(this,'clothing')">服饰</div>
 </div>
 <div class="search-box"><span>🔍</span><input type="text" placeholder="搜索词汇..." id="vocabSearch" oninput="filterVocab()"></div>
 <div class="word-list" id="vocabList"></div>
@@ -392,11 +398,11 @@ h2{font-size:1.375rem}
 <div class="tabs"><div class="tab active" onclick="switchFlashcardSet(this,'basic')">基础词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n5')">N5词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n4')">N4词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n3')">N3词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n2')">N2词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n1')">N1词汇</div></div>
 <div class="flashcard-container">
 <div class="flashcard" id="flashcard" onclick="flipCard()">
-<div class="flashcard-front"><div class="flashcard-word" id="fc-front-word">食べる</div><div class="flashcard-reading" id="fc-front-reading">たべる</div></div>
-<div class="flashcard-back"><div class="flashcard-meaning" id="fc-back-meaning">吃</div><div class="flashcard-example" id="fc-back-example">朝ご飯を食べる。/ 吃早饭。</div></div>
+<div class="flashcard-front"><div class="flashcard-word" id="fc-front-word">食べる</div><div class="flashcard-reading" id="fc-front-reading">たべる</div><button class="speak-btn" onclick="event.stopPropagation();speak(document.getElementById('fc-front-word').textContent)" style="margin-top:12px;font-size:24px;width:48px;height:48px">🔊</button></div>
+<div class="flashcard-back"><div class="flashcard-meaning" id="fc-back-meaning">吃</div><div class="flashcard-example" id="fc-back-example">朝ご飯を食べる。/ 吃早饭。</div><button class="speak-btn" onclick="event.stopPropagation();speak(document.getElementById('fc-front-word').textContent)" style="margin-top:12px;font-size:24px;width:48px;height:48px">🔊</button></div>
 </div>
 </div>
-<div class="flashcard-controls"><button class="btn btn-secondary" onclick="prevCard()">⬅ 上一个</button><button class="btn btn-primary" onclick="nextCard()">下一个 ➡</button></div>
+<div class="flashcard-controls"><button class="btn btn-secondary" onclick="prevCard()">⬅ 上一个</button><button class="btn btn-primary" onclick="speak(document.getElementById('fc-front-word').textContent)">🔊 再听一次</button><button class="btn btn-secondary" onclick="nextCard()">下一个 ➡</button></div>
 <div style="text-align:center;margin-top:16px;color:var(--text-muted);font-size:0.875rem"><span id="fc-counter">1 / 20</span></div>
 </div>
 <!-- Quiz -->
@@ -513,6 +519,82 @@ job:[
 ['店員','てんいん','tenin','店员','名'],['歌手','かしゅ','kashu','歌手','名'],
 ['俳優','はいゆう','haiyū','演员','名'],['作家','さっか','sakka','作家','名'],
 ['仕事','しごと','shigoto','工作','名'],['会社','かいしゃ','kaisha','公司','名'],['大学','だいがく','daigaku','大学','名']
+],
+daily:[
+['朝','あさ','asa','早上','名'],['昼','ひる','hiru','中午','名'],['夜','よる','yoru','晚上','名'],
+['今日','きょう','kyō','今天','名'],['明日','あした','ashita','明天','名'],['昨日','きのう','kinō','昨天','名'],
+['毎日','まいにち','mainichi','每天','名'],['毎週','まいしゅう','maishū','每周','名'],['毎月','まいつき','maitsuki','每月','名'],
+['毎年','まいとし','maitoshi','每年','名'],['朝ご飯','あさごはん','asagohan','早饭','名'],
+['昼ご飯','ひるごはん','hirugohan','午饭','名'],['晩ご飯','ばんごはん','bangohan','晚饭','名'],
+['お風呂','おふろ','ofuro','洗澡','名'],['寝る','ねる','neru','睡觉','动'],
+['起きる','おきる','okiru','起床','动'],['働く','はたらく','hataraku','工作','动'],
+['休む','やすむ','yasumu','休息','动'],['散歩する','さんぽする','sanpo suru','散步','动']
+],
+sports:[
+['スポーツ','スポーツ','supōtsu','运动','名'],['野球','やきゅう','yakyū','棒球','名'],
+['サッカー','サッカー','sakkā','足球','名'],['テニス','テニス','tenisu','网球','名'],
+['水泳','すいえい','suiei','游泳','名'],['バスケットボール','バスケットボール','basukettobōru','篮球','名'],
+['ゴルフ','ゴルフ','gorufu','高尔夫','名'],['スキー','スキー','sukī','滑雪','名'],
+['走る','はしる','hashiru','跑','动'],['泳ぐ','およぐ','oyogu','游泳','动'],
+['飛ぶ','とぶ','tobu','跳','动'],['投げる','なげる','nageru','投','动'],
+['蹴る','ける','keru','踢','动'],['勝つ','かつ','katsu','赢','动'],
+['負ける','まける','makeru','输','动'],['試合','しあい','shiai','比赛','名']
+],
+nature:[
+['山','やま','yama','山','名'],['川','かわ','kawa','河','名'],['海','うみ','umi','海','名'],
+['湖','みずうみ','mizūmi','湖','名'],['森','もり','mori','森林','名'],['木','き','ki','树','名'],
+['花','はな','hana','花','名'],['草','くさ','kusa','草','名'],['石','いし','ishi','石头','名'],
+['土','つち','tsuchi','土地','名'],['空','そら','sora','天空','名'],['雲','くも','kumo','云','名'],
+['風','かぜ','kaze','风','名'],['雨','あめ','ame','雨','名'],['雪','ゆき','yuki','雪','名'],
+['太陽','たいよう','taiyō','太阳','名'],['月','つき','tsuki','月亮','名'],['星','ほし','hoshi','星星','名'],
+['春','はる','haru','春天','名'],['夏','なつ','natsu','夏天','名'],['秋','あき','aki','秋天','名'],['冬','ふゆ','fuyu','冬天','名']
+],
+building:[
+['建物','たてもの','tatemono','建筑物','名'],['家','いえ','ie','家','名'],['マンション','マンション','manshon','公寓','名'],
+['ホテル','ホテル','hoteru','酒店','名'],['レストラン','レストラン','resutoran','餐厅','名'],
+['病院','びょういん','byōin','医院','名'],['学校','がっこう','gakkō','学校','名'],
+['銀行','ぎんこう','ginkō','银行','名'],['郵便局','ゆうびんきょく','yūbinkyoku','邮局','名'],
+['図書館','としょかん','toshokan','图书馆','名'],['美術館','びじゅつかん','bijutsukan','美术馆','名'],
+['映画館','えいがかん','eigakan','电影院','名'],['デパート','デパート','depāto','百货商店','名'],
+['スーパー','スーパー','sūpā','超市','名'],['コンビニ','コンビニ','konbini','便利店','名'],
+['公園','こうえん','kōen','公园','名'],['寺','てら','tera','寺庙','名'],['神社','じんじゃ','jinja','神社','名']
+],
+emotion:[
+['嬉しい','うれしい','ureshii','高兴的','形'],['悲しい','かなしい','kanashii','悲伤的','形'],
+['楽しい','たのしい','tanoshii','快乐的','形'],['怖い','こわい','kowai','害怕的','形'],
+['怒り','いかり','ikari','愤怒','名'],['驚き','おどろき','odoroki','惊讶','名'],
+['心配','しんぱい','shinpai','担心','名'],['安心','あんしん','anshin','安心','名'],
+['好き','すき','suki','喜欢','形'],['嫌い','きらい','kirai','讨厌','形'],
+['面白い','おもしろい','omoshiroi','有趣的','形'],['つまらない','つまらない','tsumaranai','无聊的','形'],
+['優しい','やさしい','yasashii','温柔的','形'],['厳しい','きびしい','kibishii','严厉的','形'],
+['寂しい','さびしい','sabishii','寂寞的','形'],['恥ずかしい','はずかしい','hazukashii','害羞的','形']
+],
+clothing:[
+['服','ふく','fuku','衣服','名'],['シャツ','シャツ','shatsu','衬衫','名'],['ズボン','ズボン','zubon','裤子','名'],
+['スカート','スカート','sukāto','裙子','名'],['靴','くつ','kutsu','鞋子','名'],['帽子','ぼうし','bōshi','帽子','名'],
+['眼鏡','めがね','megane','眼镜','名'],['傘','かさ','kasa','伞','名'],['バッグ','バッグ','baggu','包','名'],
+['腕時計','うでどけい','udedokei','手表','名'],['指輪','ゆびわ','yubiwa','戒指','名'],['ネックレス','ネックレス','nekkuresu','项链','名'],
+['着る','きる','kiru','穿','动'],['脱ぐ','ぬぐ','nugu','脱','动'],['被る','かぶる','kaburu','戴','动'],
+['履く','はく','haku','穿（鞋袜）','动'],['結ぶ','むすぶ','musubu','系','动']
+],
+number_adv:[
+['ゼロ','ゼロ','zero','零','名'],['一','いち','ichi','一','名'],['二','に','ni','二','名'],
+['三','さん','san','三','名'],['四','よん','yon','四','名'],['五','ご','go','五','名'],
+['六','ろく','roku','六','名'],['七','なな','nana','七','名'],['八','はち','hachi','八','名'],
+['九','きゅう','kyū','九','名'],['十','じゅう','jū','十','名'],['百','ひゃく','hyaku','百','名'],
+['千','せん','sen','千','名'],['万','まん','man','万','名'],['億','おく','oku','亿','名'],
+['第一','だいいち','daiichi','第一','名'],['第二','だいに','daini','第二','名'],
+['半分','はんぶん','hanbun','一半','名'],['全部','ぜんぶ','zenbu','全部','名'],['何','なん','nan','几','疑']
+],
+place:[
+['ここ','ここ','koko','这里','代'],['そこ','そこ','soko','那里','代'],
+['あそこ','あそこ','asoko','那里（远）','代'],['どこ','どこ','doko','哪里','疑'],
+['上','うえ','ue','上','名'],['下','した','shita','下','名'],
+['中','なか','naka','里','名'],['外','そと','soto','外','名'],
+['前','まえ','mae','前','名'],['後ろ','うしろ','ushiro','后','名'],
+['右','みぎ','migi','右','名'],['左','ひだり','hidari','左','名'],
+['隣','となり','tonari','旁边','名'],['向こう','むこう','mukō','对面','名'],
+['近く','ちかく','chikaku','附近','名'],['遠い','とおい','tōi','远的','形'],['近い','ちかい','chikai','近的','形']
 ]
 };
 var phraseData={
@@ -1071,7 +1153,7 @@ function renderGrammarBasic(){var h='';for(var i=0;i<grammarBasicData.length;i++
 // ===== Flashcard =====
 var flashcardShuffled=[];
 function switchFlashcardSet(el,s){currentFlashcardSet=s;var tabs=document.querySelectorAll('#section-flashcard .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');flashcardIndex=0;shuffleFlashcards();renderFlashcard();}
-function getFlashcardData(){switch(currentFlashcardSet){case'basic':return vocabData.numbers.concat(vocabData.time,vocabData.family,vocabData.color,vocabData.body,vocabData.direction,vocabData.food,vocabData.weather,vocabData.transport,vocabData.job);case'n5':return jlptVocab.n5;case'n4':return jlptVocab.n4;case'n3':return jlptVocab.n3;case'n2':return jlptVocab.n2;case'n1':return jlptVocab.n1;default:return vocabData.numbers;}}
+function getFlashcardData(){switch(currentFlashcardSet){case'basic':return vocabData.numbers.concat(vocabData.time,vocabData.family,vocabData.color,vocabData.body,vocabData.direction,vocabData.food,vocabData.weather,vocabData.transport,vocabData.job,vocabData.daily,vocabData.sports,vocabData.nature,vocabData.building,vocabData.emotion,vocabData.clothing);case'n5':return jlptVocab.n5;case'n4':return jlptVocab.n4;case'n3':return jlptVocab.n3;case'n2':return jlptVocab.n2;case'n1':return jlptVocab.n1;default:return vocabData.numbers;}}
 function shuffleFlashcards(){flashcardShuffled=getFlashcardData().slice().sort(function(){return 0.5-Math.random();});}
 function renderFlashcard(){if(!flashcardShuffled.length)shuffleFlashcards();var c=flashcardShuffled[flashcardIndex%flashcardShuffled.length];document.getElementById('fc-front-word').textContent=c[0];document.getElementById('fc-front-reading').textContent=c[1];document.getElementById('fc-back-meaning').textContent=c[3];document.getElementById('fc-back-example').textContent=c[2];document.getElementById('fc-counter').textContent=(flashcardIndex+1)+' / '+flashcardShuffled.length;document.getElementById('flashcard').classList.remove('flipped');speak(c[0]);}
 function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
@@ -1080,7 +1162,7 @@ function prevCard(){flashcardIndex=(flashcardIndex-1+flashcardShuffled.length)%f
 
 // ===== Quiz =====
 function switchQuizSet(el,s){currentQuizSet=s;var tabs=document.querySelectorAll('#section-quiz .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');quizIndex=0;quizScore=0;quizAnswered=false;renderQuiz();}
-function getQuizData(){switch(currentQuizSet){case'basic':return vocabData.numbers.concat(vocabData.time,vocabData.family,vocabData.color,vocabData.body,vocabData.direction,vocabData.food,vocabData.weather,vocabData.transport,vocabData.job);case'n5':return jlptVocab.n5;case'n4':return jlptVocab.n4;case'n3':return jlptVocab.n3;default:return vocabData.numbers.concat(vocabData.time,vocabData.family);}}
+function getQuizData(){switch(currentQuizSet){case'basic':return vocabData.numbers.concat(vocabData.time,vocabData.family,vocabData.color,vocabData.body,vocabData.direction,vocabData.food,vocabData.weather,vocabData.transport,vocabData.job,vocabData.daily,vocabData.sports,vocabData.nature,vocabData.building,vocabData.emotion,vocabData.clothing);case'n5':return jlptVocab.n5;case'n4':return jlptVocab.n4;case'n3':return jlptVocab.n3;default:return vocabData.numbers.concat(vocabData.time,vocabData.family);}}
 var _quizCorrect='';
 function renderQuiz(){var data=getQuizData();if(!data.length)return;var shuffled=data.slice().sort(function(){return 0.5-Math.random();});var q=shuffled[quizIndex%shuffled.length];_quizCorrect=q[3];var opts=[q[3]];var wrong=[];for(var i=0;i<data.length&&wrong.length<3;i++){if(data[i][3]!==q[3]&&wrong.indexOf(data[i][3])===-1)wrong.push(data[i][3]);}opts=opts.concat(wrong).sort(function(){return 0.5-Math.random();});document.getElementById('quiz-word').textContent=q[0];document.getElementById('quiz-reading').textContent=q[1];document.getElementById('quiz-current').textContent=quizIndex+1;document.getElementById('quiz-total').textContent=quizTotal;document.getElementById('quiz-progress').style.width=((quizIndex+1)/quizTotal*100)+'%';var h='';for(var i=0;i<opts.length;i++){h+='<button class="quiz-option" onclick="answerQuiz(this,'+(opts[i]===q[3]?1:0)+')">'+opts[i]+'</button>';}document.getElementById('quiz-options').innerHTML=h;document.getElementById('quiz-next').style.display='none';quizAnswered=false;}
 function answerQuiz(btn,correct){if(quizAnswered)return;quizAnswered=true;var opts=document.querySelectorAll('.quiz-option');for(var i=0;i<opts.length;i++)opts[i].disabled=true;if(correct){btn.classList.add('correct');quizScore++;}else{btn.classList.add('wrong');for(var i=0;i<opts.length;i++){if(opts[i].textContent===_quizCorrect)opts[i].classList.add('correct');}}document.getElementById('quiz-next').style.display='inline-flex';}
