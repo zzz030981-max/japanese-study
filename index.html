@@ -1039,10 +1039,11 @@ function toggleSidebar(){document.getElementById('sidebar').classList.toggle('op
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
 function toggleTheme(){var h=document.documentElement;h.classList.toggle('dark');var d=h.classList.contains('dark');document.getElementById('themeIcon').textContent=d?'☀️':'🌙';document.getElementById('themeText').textContent=d?'白天模式':'暗黑模式';localStorage.setItem('jp-theme',d?'dark':'light');}
 var _audioUnlocked=false;
+var _currentAudio=null;
 function _unlockAudio(){if(_audioUnlocked)return;_audioUnlocked=true;try{var a=new Audio('https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana=%E3%81%82&kanji=%E3%81%82');a.volume=0;a.play().then(function(){a.pause();a.src='';}).catch(function(){});}catch(e){}}
 document.addEventListener('click',_unlockAudio,{once:true});
 document.addEventListener('touchstart',_unlockAudio,{once:true});
-function speak(text){try{_unlockAudio();var a=new Audio();a.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encodeURIComponent(text)+'&kanji='+encodeURIComponent(text);a.play().catch(function(){});}catch(e){}}
+function speak(text){try{_unlockAudio();if(_currentAudio){_currentAudio.pause();_currentAudio.src='';}_currentAudio=new Audio();_currentAudio.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encodeURIComponent(text)+'&kanji='+encodeURIComponent(text);_currentAudio.play().catch(function(){});}catch(e){}}
 
 // ===== Kana =====
 function switchKanaTab(t){currentKanaTab=t;var tabs=document.querySelectorAll('#section-kana .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');renderKana(t);}
