@@ -1039,9 +1039,9 @@ function toggleSidebar(){document.getElementById('sidebar').classList.toggle('op
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
 function toggleTheme(){var h=document.documentElement;h.classList.toggle('dark');var d=h.classList.contains('dark');document.getElementById('themeIcon').textContent=d?'☀️':'🌙';document.getElementById('themeText').textContent=d?'白天模式':'暗黑模式';localStorage.setItem('jp-theme',d?'dark':'light');}
 var _audioUnlocked=false;
-var _ttsAudio=null;
-function speak(text){try{if(_ttsAudio){try{_ttsAudio.pause();}catch(e){}}_ttsAudio=new Audio('https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(text)+'&le=jap&type=1');var p=_ttsAudio.play();if(p)p.catch(function(){try{_ttsAudio=new Audio('https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encodeURIComponent(text)+'&kanji='+encodeURIComponent(text));_ttsAudio.play().catch(function(){});}catch(e2){}});}catch(e){}}
-document.addEventListener('click',function(){if(!_audioUnlocked){_audioUnlocked=true;try{var a=new Audio('https://dict.youdao.com/dictvoice?audio=%E3%81%82&le=jap&type=1');a.volume=0.01;a.play().then(function(){a.pause();}).catch(function(){});}catch(e){}}},{once:true});
+var _audios=[];
+function speak(text){for(var i=0;i<_audios.length;i++){try{_audios[i].pause();}catch(e){}}_audios=[];var a=new Audio('https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(text)+'&le=jap&type=1');_audios.push(a);try{a.play();}catch(e){}}
+document.addEventListener('click',function(){if(!_audioUnlocked){_audioUnlocked=true;try{var a=new Audio();a.setAttribute('src','https://dict.youdao.com/dictvoice?audio=%E3%81%82&le=jap&type=1');a.volume=0.01;a.play().then(function(){a.pause();}).catch(function(){});}catch(e){}}},{once:true});
 
 // ===== Kana =====
 function switchKanaTab(t){currentKanaTab=t;var tabs=document.querySelectorAll('#section-kana .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');renderKana(t);}
