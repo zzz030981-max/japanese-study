@@ -263,10 +263,10 @@ h2{font-size:1.375rem}
 <p class="subtitle">日语的基础字母表，包含平假名和片假名。点击假名可以听到发音。</p>
 </div>
 <div class="tabs">
-<div class="tab active" onclick="switchKanaTab('hiragana')">平假名</div>
-<div class="tab" onclick="switchKanaTab('katakana')">片假名</div>
-<div class="tab" onclick="switchKanaTab('dakuten')">浊音·半浊音</div>
-<div class="tab" onclick="switchKanaTab('combo')">拗音</div>
+<div class="tab active" onclick="switchKanaTab(this,'hiragana')">平假名</div>
+<div class="tab" onclick="switchKanaTab(this,'katakana')">片假名</div>
+<div class="tab" onclick="switchKanaTab(this,'dakuten')">浊音·半浊音</div>
+<div class="tab" onclick="switchKanaTab(this,'combo')">拗音</div>
 </div>
 <div id="kanaContent"></div>
 </div>
@@ -287,16 +287,16 @@ h2{font-size:1.375rem}
 <p class="subtitle">掌握日常生活中最常用的日语词汇，为交流打下基础。</p>
 </div>
 <div class="tabs">
-<div class="tab active" onclick="switchVocabTab('numbers')">数字</div>
-<div class="tab" onclick="switchVocabTab('time')">时间</div>
-<div class="tab" onclick="switchVocabTab('family')">家庭</div>
-<div class="tab" onclick="switchVocabTab('color')">颜色</div>
-<div class="tab" onclick="switchVocabTab('direction')">方位</div>
-<div class="tab" onclick="switchVocabTab('body')">身体</div>
-<div class="tab" onclick="switchVocabTab('food')">食物</div>
-<div class="tab" onclick="switchVocabTab('weather')">天气</div>
-<div class="tab" onclick="switchVocabTab('transport')">交通</div>
-<div class="tab" onclick="switchVocabTab('job')">职业</div>
+<div class="tab active" onclick="switchVocabTab(this,'numbers')">数字</div>
+<div class="tab" onclick="switchVocabTab(this,'time')">时间</div>
+<div class="tab" onclick="switchVocabTab(this,'family')">家庭</div>
+<div class="tab" onclick="switchVocabTab(this,'color')">颜色</div>
+<div class="tab" onclick="switchVocabTab(this,'direction')">方位</div>
+<div class="tab" onclick="switchVocabTab(this,'body')">身体</div>
+<div class="tab" onclick="switchVocabTab(this,'food')">食物</div>
+<div class="tab" onclick="switchVocabTab(this,'weather')">天气</div>
+<div class="tab" onclick="switchVocabTab(this,'transport')">交通</div>
+<div class="tab" onclick="switchVocabTab(this,'job')">职业</div>
 </div>
 <div class="search-box"><span>🔍</span><input type="text" placeholder="搜索词汇..." id="vocabSearch" oninput="filterVocab()"></div>
 <div class="word-list" id="vocabList"></div>
@@ -309,10 +309,10 @@ h2{font-size:1.375rem}
 <p class="subtitle">掌握这些实用句型，让你的日语表达更自然流畅。</p>
 </div>
 <div class="tabs">
-<div class="tab active" onclick="switchPhraseTab('basic')">基本表达</div>
-<div class="tab" onclick="switchPhraseTab('question')">疑问句</div>
-<div class="tab" onclick="switchPhraseTab('request')">请求·许可</div>
-<div class="tab" onclick="switchPhraseTab('feeling')">情感表达</div>
+<div class="tab active" onclick="switchPhraseTab(this,'basic')">基本表达</div>
+<div class="tab" onclick="switchPhraseTab(this,'question')">疑问句</div>
+<div class="tab" onclick="switchPhraseTab(this,'request')">请求·许可</div>
+<div class="tab" onclick="switchPhraseTab(this,'feeling')">情感表达</div>
 </div>
 <div id="phraseContent"></div>
 </div>
@@ -324,11 +324,11 @@ h2{font-size:1.375rem}
 <p class="subtitle">通过真实场景对话，学习地道的日语表达方式。</p>
 </div>
 <div class="tabs">
-<div class="tab active" onclick="switchDialogTab('restaurant')">餐厅</div>
-<div class="tab" onclick="switchDialogTab('shopping')">购物</div>
-<div class="tab" onclick="switchDialogTab('directions')">问路</div>
-<div class="tab" onclick="switchDialogTab('hotel')">酒店</div>
-<div class="tab" onclick="switchDialogTab('selfintro')">自我介绍</div>
+<div class="tab active" onclick="switchDialogTab(this,'restaurant')">餐厅</div>
+<div class="tab" onclick="switchDialogTab(this,'shopping')">购物</div>
+<div class="tab" onclick="switchDialogTab(this,'directions')">问路</div>
+<div class="tab" onclick="switchDialogTab(this,'hotel')">酒店</div>
+<div class="tab" onclick="switchDialogTab(this,'selfintro')">自我介绍</div>
 </div>
 <div id="dialogContent"></div>
 </div>
@@ -359,37 +359,37 @@ h2{font-size:1.375rem}
 <!-- JLPT N5 -->
 <div class="section" id="section-jlpt-n5">
 <div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N5 入门级</h1><p class="subtitle">掌握基础日语，能够理解简单的句子和日常表达。</p></div>
-<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n5','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n5','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n5','reading')">阅读</div></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab(this,'n5','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n5','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n5','reading')">阅读</div></div>
 <div id="jlpt-n5-content"></div>
 </div>
 <!-- JLPT N4 -->
 <div class="section" id="section-jlpt-n4">
 <div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N4 初级</h1><p class="subtitle">理解日常日语对话，能够阅读简单的文章。</p></div>
-<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n4','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n4','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n4','reading')">阅读</div></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab(this,'n4','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n4','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n4','reading')">阅读</div></div>
 <div id="jlpt-n4-content"></div>
 </div>
 <!-- JLPT N3 -->
 <div class="section" id="section-jlpt-n3">
 <div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N3 中级</h1><p class="subtitle">理解日常场景中的日语，能够阅读报纸标题和简单文章。</p></div>
-<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n3','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n3','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n3','reading')">阅读</div></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab(this,'n3','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n3','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n3','reading')">阅读</div></div>
 <div id="jlpt-n3-content"></div>
 </div>
 <!-- JLPT N2 -->
 <div class="section" id="section-jlpt-n2">
 <div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N2 中高级</h1><p class="subtitle">理解各种场景的日语，能够阅读报纸和杂志。</p></div>
-<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n2','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n2','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n2','reading')">阅读</div></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab(this,'n2','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n2','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n2','reading')">阅读</div></div>
 <div id="jlpt-n2-content"></div>
 </div>
 <!-- JLPT N1 -->
 <div class="section" id="section-jlpt-n1">
 <div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N1 高级</h1><p class="subtitle">理解各种场景的日语，包括抽象话题和复杂表达。</p></div>
-<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n1','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n1','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n1','reading')">阅读</div></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab(this,'n1','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n1','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab(this,'n1','reading')">阅读</div></div>
 <div id="jlpt-n1-content"></div>
 </div>
 <!-- Flashcard -->
 <div class="section" id="section-flashcard">
 <div class="section-header"><div class="back-btn" onclick="showSection('home')">← 返回首页</div><h1>闪卡练习</h1><p class="subtitle">通过闪卡快速记忆日语词汇，点击卡片翻转查看释义。</p></div>
-<div class="tabs"><div class="tab active" onclick="switchFlashcardSet('basic')">基础词汇</div><div class="tab" onclick="switchFlashcardSet('n5')">N5词汇</div><div class="tab" onclick="switchFlashcardSet('n4')">N4词汇</div><div class="tab" onclick="switchFlashcardSet('n3')">N3词汇</div><div class="tab" onclick="switchFlashcardSet('n2')">N2词汇</div><div class="tab" onclick="switchFlashcardSet('n1')">N1词汇</div></div>
+<div class="tabs"><div class="tab active" onclick="switchFlashcardSet(this,'basic')">基础词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n5')">N5词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n4')">N4词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n3')">N3词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n2')">N2词汇</div><div class="tab" onclick="switchFlashcardSet(this,'n1')">N1词汇</div></div>
 <div class="flashcard-container">
 <div class="flashcard" id="flashcard" onclick="flipCard()">
 <div class="flashcard-front"><div class="flashcard-word" id="fc-front-word">食べる</div><div class="flashcard-reading" id="fc-front-reading">たべる</div></div>
@@ -402,7 +402,7 @@ h2{font-size:1.375rem}
 <!-- Quiz -->
 <div class="section" id="section-quiz">
 <div class="section-header"><div class="back-btn" onclick="showSection('home')">← 返回首页</div><h1>词汇测试</h1><p class="subtitle">测试你的日语词汇掌握程度，选择正确的中文意思。</p></div>
-<div class="tabs"><div class="tab active" onclick="switchQuizSet('basic')">基础词汇</div><div class="tab" onclick="switchQuizSet('n5')">N5词汇</div><div class="tab" onclick="switchQuizSet('n4')">N4词汇</div><div class="tab" onclick="switchQuizSet('n3')">N3词汇</div></div>
+<div class="tabs"><div class="tab active" onclick="switchQuizSet(this,'basic')">基础词汇</div><div class="tab" onclick="switchQuizSet(this,'n5')">N5词汇</div><div class="tab" onclick="switchQuizSet(this,'n4')">N4词汇</div><div class="tab" onclick="switchQuizSet(this,'n3')">N3词汇</div></div>
 <div class="quiz-progress"><span id="quiz-current">1</span> / <span id="quiz-total">10</span><div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:10%"></div></div></div>
 <div class="card" style="margin-bottom:24px"><div style="text-align:center"><div class="flashcard-word" id="quiz-word" style="font-size:3rem;margin-bottom:8px">食べる</div><div class="flashcard-reading" id="quiz-reading" style="color:var(--text-muted)">たべる</div></div></div>
 <div id="quiz-options"></div>
@@ -1044,7 +1044,7 @@ function speak(text){for(var i=0;i<_audios.length;i++){try{_audios[i].pause();}c
 document.addEventListener('click',function(){if(!_audioUnlocked){_audioUnlocked=true;try{var a=new Audio();a.setAttribute('src','https://dict.youdao.com/dictvoice?audio=%E3%81%82&le=jap&type=1');a.volume=0.01;a.play().then(function(){a.pause();}).catch(function(){});}catch(e){}}},{once:true});
 
 // ===== Kana =====
-function switchKanaTab(t){currentKanaTab=t;var tabs=document.querySelectorAll('#section-kana .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');renderKana(t);}
+function switchKanaTab(el,t){currentKanaTab=t;var tabs=document.querySelectorAll('#section-kana .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');renderKana(t);}
 function renderKana(tab){var data;switch(tab){case'hiragana':data=hiragana;break;case'katakana':data=katakana;break;case'dakuten':data=dakuten;break;case'combo':data=comboKana;break;default:data=hiragana;}var h='<div class="kana-table">';for(var i=0;i<data.length;i++){h+='<div class="kana-cell" onclick="learnKana(\''+data[i][0]+'\',\''+data[i][1]+'\)"><div class="kana-char">'+data[i][0]+'</div><div class="kana-romaji">'+data[i][1]+'</div></div>';}h+='</div>';document.getElementById('kanaContent').innerHTML=h;}
 function learnKana(c,r){learnedKana[c]=true;saveProgress();updateStats();speak(c);}
 
@@ -1052,17 +1052,17 @@ function learnKana(c,r){learnedKana[c]=true;saveProgress();updateStats();speak(c
 function renderGreetings(){var h='';for(var i=0;i<greetingsData.length;i++){var g=greetingsData[i];h+='<div class="card"><div class="card-title" style="display:flex;align-items:center;gap:8px">'+g.jp+'<button class="speak-btn" onclick="speak(\''+g.jp+'\',\'ja\')">🔊</button></div><div class="card-desc">'+g.cn+'</div><div style="margin-top:8px;font-size:0.8125rem;color:var(--text-muted)">'+g.roma+'</div></div>';}document.getElementById('greetingsContent').innerHTML=h;}
 
 // ===== Vocab =====
-function switchVocabTab(t){currentVocabTab=t;var tabs=document.querySelectorAll('#section-vocab-basic .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');renderVocab(t);}
+function switchVocabTab(el,t){currentVocabTab=t;var tabs=document.querySelectorAll('#section-vocab-basic .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');renderVocab(t);}
 function renderVocab(tab){var data=vocabData[tab]||[];var h='';for(var i=0;i<data.length;i++){var w=data[i];h+='<div class="word-item" onclick="learnVocab(\''+w[0]+'\')"><span class="word-jp">'+w[0]+'</span><span class="word-reading">'+w[1]+'</span><span class="word-meaning">'+w[3]+'</span><span class="word-pos">'+w[4]+'</span></div>';}document.getElementById('vocabList').innerHTML=h;}
 function filterVocab(){var q=document.getElementById('vocabSearch').value.toLowerCase();var items=document.querySelectorAll('.word-item');for(var i=0;i<items.length;i++){items[i].style.display=items[i].textContent.toLowerCase().includes(q)?'':'none';}}
 function learnVocab(w){learnedVocab[w]=true;saveProgress();updateStats();speak(w);}
 
 // ===== Phrases =====
-function switchPhraseTab(t){currentPhraseTab=t;var tabs=document.querySelectorAll('#section-phrases .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');renderPhrases(t);}
+function switchPhraseTab(el,t){currentPhraseTab=t;var tabs=document.querySelectorAll('#section-phrases .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');renderPhrases(t);}
 function renderPhrases(tab){var data=phraseData[tab]||[];var h='';for(var i=0;i<data.length;i++){var p=data[i];h+='<div class="grammar-card"><div class="grammar-pattern" style="display:flex;align-items:center;gap:8px">'+p[0]+'<button class="speak-btn" onclick="speak(\''+p[0].replace(/'/g,"\\'")+'\',\'ja\')">🔊</button></div><div class="grammar-meaning">'+p[2]+'</div><div class="grammar-example"><div class="grammar-example-jp">'+p[1]+'</div><div class="grammar-example-cn">'+p[3]+'</div></div></div>';}document.getElementById('phraseContent').innerHTML=h;}
 
 // ===== Dialog =====
-function switchDialogTab(t){currentDialogTab=t;var tabs=document.querySelectorAll('#section-dialogs .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');renderDialog(t);}
+function switchDialogTab(el,t){currentDialogTab=t;var tabs=document.querySelectorAll('#section-dialogs .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');renderDialog(t);}
 function renderDialog(tab){var d=dialogData[tab];if(!d)return;var h='<div class="dialog-box"><div class="dialog-title">📍 '+d.title+'</div>';for(var i=0;i<d.lines.length;i++){var l=d.lines[i];h+='<div class="dialog-line"><span class="dialog-speaker">'+l.speaker+'</span><div class="dialog-text"><div class="dialog-jp" style="display:flex;align-items:center;gap:6px">'+l.jp+'<button class="speak-btn" onclick="speak(\''+l.jp.replace(/'/g,"\\'")+'\',\'ja\')" style="width:24px;height:24px;font-size:12px">🔊</button></div><div class="dialog-cn">'+l.cn+'</div></div></div>';}h+='</div>';document.getElementById('dialogContent').innerHTML=h;}
 
 // ===== Grammar Basic =====
@@ -1070,7 +1070,7 @@ function renderGrammarBasic(){var h='';for(var i=0;i<grammarBasicData.length;i++
 
 // ===== Flashcard =====
 var flashcardShuffled=[];
-function switchFlashcardSet(s){currentFlashcardSet=s;var tabs=document.querySelectorAll('#section-flashcard .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');flashcardIndex=0;shuffleFlashcards();renderFlashcard();}
+function switchFlashcardSet(el,s){currentFlashcardSet=s;var tabs=document.querySelectorAll('#section-flashcard .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');flashcardIndex=0;shuffleFlashcards();renderFlashcard();}
 function getFlashcardData(){switch(currentFlashcardSet){case'basic':return vocabData.numbers.concat(vocabData.time,vocabData.family,vocabData.color,vocabData.body,vocabData.direction,vocabData.food,vocabData.weather,vocabData.transport,vocabData.job);case'n5':return jlptVocab.n5;case'n4':return jlptVocab.n4;case'n3':return jlptVocab.n3;case'n2':return jlptVocab.n2;case'n1':return jlptVocab.n1;default:return vocabData.numbers;}}
 function shuffleFlashcards(){flashcardShuffled=getFlashcardData().slice().sort(function(){return 0.5-Math.random();});}
 function renderFlashcard(){if(!flashcardShuffled.length)shuffleFlashcards();var c=flashcardShuffled[flashcardIndex%flashcardShuffled.length];document.getElementById('fc-front-word').textContent=c[0];document.getElementById('fc-front-reading').textContent=c[1];document.getElementById('fc-back-meaning').textContent=c[3];document.getElementById('fc-back-example').textContent=c[2];document.getElementById('fc-counter').textContent=(flashcardIndex+1)+' / '+flashcardShuffled.length;document.getElementById('flashcard').classList.remove('flipped');speak(c[0]);}
@@ -1079,7 +1079,7 @@ function nextCard(){flashcardIndex=(flashcardIndex+1)%flashcardShuffled.length;r
 function prevCard(){flashcardIndex=(flashcardIndex-1+flashcardShuffled.length)%flashcardShuffled.length;renderFlashcard();}
 
 // ===== Quiz =====
-function switchQuizSet(s){currentQuizSet=s;var tabs=document.querySelectorAll('#section-quiz .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');quizIndex=0;quizScore=0;quizAnswered=false;renderQuiz();}
+function switchQuizSet(el,s){currentQuizSet=s;var tabs=document.querySelectorAll('#section-quiz .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');quizIndex=0;quizScore=0;quizAnswered=false;renderQuiz();}
 function getQuizData(){switch(currentQuizSet){case'basic':return vocabData.numbers.concat(vocabData.time,vocabData.family,vocabData.color,vocabData.body,vocabData.direction,vocabData.food,vocabData.weather,vocabData.transport,vocabData.job);case'n5':return jlptVocab.n5;case'n4':return jlptVocab.n4;case'n3':return jlptVocab.n3;default:return vocabData.numbers.concat(vocabData.time,vocabData.family);}}
 var _quizCorrect='';
 function renderQuiz(){var data=getQuizData();if(!data.length)return;var shuffled=data.slice().sort(function(){return 0.5-Math.random();});var q=shuffled[quizIndex%shuffled.length];_quizCorrect=q[3];var opts=[q[3]];var wrong=[];for(var i=0;i<data.length&&wrong.length<3;i++){if(data[i][3]!==q[3]&&wrong.indexOf(data[i][3])===-1)wrong.push(data[i][3]);}opts=opts.concat(wrong).sort(function(){return 0.5-Math.random();});document.getElementById('quiz-word').textContent=q[0];document.getElementById('quiz-reading').textContent=q[1];document.getElementById('quiz-current').textContent=quizIndex+1;document.getElementById('quiz-total').textContent=quizTotal;document.getElementById('quiz-progress').style.width=((quizIndex+1)/quizTotal*100)+'%';var h='';for(var i=0;i<opts.length;i++){h+='<button class="quiz-option" onclick="answerQuiz(this,'+(opts[i]===q[3]?1:0)+')">'+opts[i]+'</button>';}document.getElementById('quiz-options').innerHTML=h;document.getElementById('quiz-next').style.display='none';quizAnswered=false;}
@@ -1087,7 +1087,7 @@ function answerQuiz(btn,correct){if(quizAnswered)return;quizAnswered=true;var op
 function nextQuizQuestion(){quizIndex++;if(quizIndex>=quizTotal){alert('测试完成！正确率：'+Math.round(quizScore/quizTotal*100)+'%');quizIndex=0;quizScore=0;}renderQuiz();}
 
 // ===== JLPT Content =====
-function switchJlptTab(level,tab){var tabs=document.querySelectorAll('#section-jlpt-'+level+' .jlpt-tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');renderJlptContent(level,tab);}
+function switchJlptTab(el,level,tab){var tabs=document.querySelectorAll('#section-jlpt-'+level+' .jlpt-tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');renderJlptContent(level,tab);}
 function renderJlptContent(level,tab){var c=document.getElementById('jlpt-'+level+'-content');if(!c)return;var h='';if(tab==='vocab'){var vocab=jlptVocab[level]||[];h+='<div class="word-list">';for(var i=0;i<vocab.length;i++){var w=vocab[i];if(w[0]==='❦')continue;h+='<div class="word-item"><span class="word-jp">'+w[0]+'</span><span class="word-reading">'+w[1]+'</span><span class="word-meaning">'+w[3]+'</span><span class="word-pos">'+w[4]+'</span></div>';}h+='</div>';}else if(tab==='grammar'){var grammar=jlptGrammar[level]||[];for(var i=0;i<grammar.length;i++){var g=grammar[i];h+='<div class="grammar-card"><div class="grammar-pattern">'+g.pattern+'</div><div class="grammar-meaning">'+g.meaning+'</div><div class="grammar-example"><div class="grammar-example-jp">'+g.example+'</div><div class="grammar-example-cn">'+g.trans+'</div></div></div>';}}else if(tab==='reading'){var tips=readingTips[level]||[];h+='<div class="card"><h3>阅读技巧</h3><ul style="margin-top:12px;padding-left:20px">';for(var i=0;i<tips.length;i++){h+='<li style="margin-bottom:8px;color:var(--text-secondary)">'+tips[i]+'</li>';}h+='</ul></div>';}c.innerHTML=h;}
 
 init();
