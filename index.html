@@ -111,10 +111,10 @@ h3{font-size:1.25rem;font-weight:600;line-height:1.4;margin-bottom:8px}
 .flashcard-meaning{font-size:1.25rem;font-weight:500;margin-bottom:8px}
 .flashcard-example{font-size:0.875rem;color:var(--text-secondary);text-align:center}
 .flashcard-controls{display:flex;gap:12px;justify-content:center;margin-top:20px}
-.quiz-option{display:block;width:100%;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;cursor:pointer;transition:all 0.15s ease;text-align:left;font-size:15px}
-.quiz-option:hover{border-color:var(--accent);background:var(--accent-bg)}
-.quiz-option.correct{border-color:var(--success);background:var(--success-bg)}
-.quiz-option.wrong{border-color:var(--error);background:var(--error-bg)}
+.quiz-option{display:block;width:100%;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;cursor:pointer;transition:all 0.15s ease;text-align:left;font-size:15px;color:var(--text)}
+.quiz-option:hover{border-color:var(--accent);background:var(--accent-bg);color:var(--text)}
+.quiz-option.correct{border-color:var(--success);background:var(--success-bg);color:var(--text)}
+.quiz-option.wrong{border-color:var(--error);background:var(--error-bg);color:var(--text)}
 .quiz-progress{display:flex;align-items:center;gap:12px;margin-bottom:24px}
 .progress-bar{flex:1;height:6px;background:var(--bg-alt);border-radius:3px;overflow:hidden}
 .progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.3s ease}
@@ -995,7 +995,7 @@ function showSection(s){var all=document.querySelectorAll('.section');for(var i=
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
 function toggleTheme(){var h=document.documentElement;h.classList.toggle('dark');var d=h.classList.contains('dark');document.getElementById('themeIcon').textContent=d?'☀️':'🌙';document.getElementById('themeText').textContent=d?'白天模式':'暗黑模式';localStorage.setItem('jp-theme',d?'dark':'light');}
-function speak(text,l){try{var audio=document.getElementById('tts-audio');if(!audio){audio=document.createElement('audio');audio.id='tts-audio';audio.style.display='none';document.body.appendChild(audio);}var encoded=encodeURIComponent(text);audio.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encoded+'&kanji='+encoded;if(typeof WeixinJSBridge!=='undefined'){WeixinJSBridge.invoke('getNetworkType',{},function(){audio.play();});}else{audio.play();}}catch(e){}}
+function speak(text,l){try{var audio=document.getElementById('tts-audio');if(!audio){audio=document.createElement('audio');audio.id='tts-audio';audio.style.display='none';document.body.appendChild(audio);}var encoded=encodeURIComponent(text);audio.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encoded+'&kanji='+encoded;if(typeof WeixinJSBridge!=='undefined'){WeixinJSBridge.invoke('getNetworkType',{},function(){audio.play();});}else{var p=audio.play();if(p)p.catch(function(){audio.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encoded+'&kanji='+encoded;audio.play();});}}catch(e){}}
 
 // ===== Kana =====
 function switchKanaTab(t){currentKanaTab=t;var tabs=document.querySelectorAll('#section-kana .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');renderKana(t);}
@@ -1023,12 +1023,14 @@ function renderDialog(tab){var d=dialogData[tab];if(!d)return;var h='<div class=
 function renderGrammarBasic(){var h='';for(var i=0;i<grammarBasicData.length;i++){var g=grammarBasicData[i];h+='<div class="grammar-card"><div class="grammar-pattern">'+g.pattern+'</div><div class="grammar-meaning">'+g.meaning+'</div><div class="grammar-example"><div class="grammar-example-jp">'+g.example+'</div><div class="grammar-example-cn">'+g.trans+'</div></div></div>';}document.getElementById('grammarBasicContent').innerHTML=h;}
 
 // ===== Flashcard =====
-function switchFlashcardSet(s){currentFlashcardSet=s;var tabs=document.querySelectorAll('#section-flashcard .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');flashcardIndex=0;renderFlashcard();}
+var flashcardShuffled=[];
+function switchFlashcardSet(s){currentFlashcardSet=s;var tabs=document.querySelectorAll('#section-flashcard .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');flashcardIndex=0;shuffleFlashcards();renderFlashcard();}
 function getFlashcardData(){switch(currentFlashcardSet){case'basic':return vocabData.numbers.concat(vocabData.time);case'n5':return jlptVocab.n5;case'n4':return jlptVocab.n4;default:return vocabData.numbers;}}
-function renderFlashcard(){var data=getFlashcardData();if(!data.length)return;var c=data[flashcardIndex%data.length];document.getElementById('fc-front-word').textContent=c[0];document.getElementById('fc-front-reading').textContent=c[1];document.getElementById('fc-back-meaning').textContent=c[3];document.getElementById('fc-back-example').textContent=c[2];document.getElementById('fc-counter').textContent=(flashcardIndex+1)+' / '+data.length;document.getElementById('flashcard').classList.remove('flipped');}
+function shuffleFlashcards(){flashcardShuffled=getFlashcardData().slice().sort(function(){return 0.5-Math.random();});}
+function renderFlashcard(){if(!flashcardShuffled.length)shuffleFlashcards();var c=flashcardShuffled[flashcardIndex%flashcardShuffled.length];document.getElementById('fc-front-word').textContent=c[0];document.getElementById('fc-front-reading').textContent=c[1];document.getElementById('fc-back-meaning').textContent=c[3];document.getElementById('fc-back-example').textContent=c[2];document.getElementById('fc-counter').textContent=(flashcardIndex+1)+' / '+flashcardShuffled.length;document.getElementById('flashcard').classList.remove('flipped');speak(c[0]);}
 function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
-function nextCard(){var data=getFlashcardData();flashcardIndex=(flashcardIndex+1)%data.length;renderFlashcard();}
-function prevCard(){var data=getFlashcardData();flashcardIndex=(flashcardIndex-1+data.length)%data.length;renderFlashcard();}
+function nextCard(){flashcardIndex=(flashcardIndex+1)%flashcardShuffled.length;renderFlashcard();}
+function prevCard(){flashcardIndex=(flashcardIndex-1+flashcardShuffled.length)%flashcardShuffled.length;renderFlashcard();}
 
 // ===== Quiz =====
 function switchQuizSet(s){currentQuizSet=s;var tabs=document.querySelectorAll('#section-quiz .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');quizIndex=0;quizScore=0;quizAnswered=false;renderQuiz();}
@@ -1042,7 +1044,7 @@ function switchJlptTab(level,tab){var tabs=document.querySelectorAll('#section-j
 function renderJlptContent(level,tab){var c=document.getElementById('jlpt-'+level+'-content');if(!c)return;var h='';if(tab==='vocab'){var vocab=jlptVocab[level]||[];h+='<div class="word-list">';for(var i=0;i<vocab.length;i++){var w=vocab[i];if(w[0]==='❦')continue;h+='<div class="word-item"><span class="word-jp">'+w[0]+'</span><span class="word-reading">'+w[1]+'</span><span class="word-meaning">'+w[3]+'</span><span class="word-pos">'+w[4]+'</span></div>';}h+='</div>';}else if(tab==='grammar'){var grammar=jlptGrammar[level]||[];for(var i=0;i<grammar.length;i++){var g=grammar[i];h+='<div class="grammar-card"><div class="grammar-pattern">'+g.pattern+'</div><div class="grammar-meaning">'+g.meaning+'</div><div class="grammar-example"><div class="grammar-example-jp">'+g.example+'</div><div class="grammar-example-cn">'+g.trans+'</div></div></div>';}}else if(tab==='reading'){var tips=readingTips[level]||[];h+='<div class="card"><h3>阅读技巧</h3><ul style="margin-top:12px;padding-left:20px">';for(var i=0;i<tips.length;i++){h+='<li style="margin-bottom:8px;color:var(--text-secondary)">'+tips[i]+'</li>';}h+='</ul></div>';}c.innerHTML=h;}
 
 init();
-document.addEventListener('touchstart',function(){var a=new Audio();a.src='https://dict.youdao.com/dictvoice?audio=%E3%81%82&le=jap&type=1';a.play().catch(function(){});a.pause();},{once:true});
+document.addEventListener('touchstart',function(){var a=new Audio();a.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana=%E3%81%82&kanji=%E3%81%82';a.play().catch(function(){});a.pause();},{once:true});
 </script>
 </body>
 </html>
