@@ -1040,12 +1040,12 @@ function closeSidebar(){document.getElementById('sidebar').classList.remove('ope
 function toggleTheme(){var h=document.documentElement;h.classList.toggle('dark');var d=h.classList.contains('dark');document.getElementById('themeIcon').textContent=d?'☀️':'🌙';document.getElementById('themeText').textContent=d?'白天模式':'暗黑模式';localStorage.setItem('jp-theme',d?'dark':'light');}
 var _audioUnlocked=false;
 var _audios=[];
-function speak(text){for(var i=0;i<_audios.length;i++){try{_audios[i].pause();}catch(e){}}_audios=[];var a=new Audio('https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(text)+'&le=jap&type=1');_audios.push(a);try{a.play();}catch(e){}}
+function speak(text){for(var i=0;i<_audios.length;i++){try{_audios[i].pause();}catch(e){}}_audios=[];var a=new Audio('https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(text)+'&le=jap&type=1');_audios.push(a);a.play().catch(function(){try{a.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encodeURIComponent(text)+'&kanji='+encodeURIComponent(text);a.play().catch(function(){});}catch(e2){}});}
 document.addEventListener('click',function(){if(!_audioUnlocked){_audioUnlocked=true;try{var a=new Audio();a.setAttribute('src','https://dict.youdao.com/dictvoice?audio=%E3%81%82&le=jap&type=1');a.volume=0.01;a.play().then(function(){a.pause();}).catch(function(){});}catch(e){}}},{once:true});
 
 // ===== Kana =====
 function switchKanaTab(el,t){currentKanaTab=t;var tabs=document.querySelectorAll('#section-kana .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');el.classList.add('active');renderKana(t);}
-function renderKana(tab){var data;switch(tab){case'hiragana':data=hiragana;break;case'katakana':data=katakana;break;case'dakuten':data=dakuten;break;case'combo':data=comboKana;break;default:data=hiragana;}var h='<div class="kana-table">';for(var i=0;i<data.length;i++){h+='<div class="kana-cell" onclick="learnKana(\''+data[i][0]+'\',\''+data[i][1]+'\)"><div class="kana-char">'+data[i][0]+'</div><div class="kana-romaji">'+data[i][1]+'</div></div>';}h+='</div>';document.getElementById('kanaContent').innerHTML=h;}
+function renderKana(tab){var data;switch(tab){case'hiragana':data=hiragana;break;case'katakana':data=katakana;break;case'dakuten':data=dakuten;break;case'combo':data=comboKana;break;default:data=hiragana;}var h='';for(var i=0;i<data.length;i++){h+='<div class="kana-cell" data-k="'+data[i][0]+'" data-r="'+data[i][1]+'"><div class="kana-char">'+data[i][0]+'</div><div class="kana-romaji">'+data[i][1]+'</div></div>';}var el=document.getElementById('kanaContent');el.innerHTML='<div class="kana-table">'+h+'</div>';el.onclick=function(e){var cell=e.target.closest('.kana-cell');if(cell){var k=cell.getAttribute('data-k');learnedKana[k]=true;saveProgress();updateStats();speak(k);}};}
 function learnKana(c,r){learnedKana[c]=true;saveProgress();updateStats();speak(c);}
 
 // ===== Greetings =====
