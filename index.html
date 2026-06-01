@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>日语学习 | Japanese Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f6f5f4;
+  --surface: #ffffff;
+  --text: rgba(0,0,0,0.95);
+  --text-secondary: #615d59;
+  --text-muted: #a39e98;
+  --border: rgba(0,0,0,0.1);
+  --border-light: rgba(0,0,0,0.05);
+  --accent: #0075de;
+  --accent-hover: #005bab;
+  --accent-bg: #f2f9ff;
+  --accent-text: #097fe8;
+  --shadow-sm: rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.84688px;
+  --shadow-md: rgba(0,0,0,0.01) 0px 1px 3px, rgba(0,0,0,0.02) 0px 3px 7px, rgba(0,0,0,0.02) 0px 7px 15px, rgba(0,0,0,0.04) 0px 14px 28px;
+  --success: #1aae39;
+  --success-bg: #e8f9ec;
+  --warning: #dd5b00;
+  --warning-bg: #fff3e8;
+  --error: #e03e3e;
+  --error-bg: #fde8e8;
+  --card-hover: rgba(0,0,0,0.02);
+  --sidebar-bg: #fbfaf9;
+  --input-bg: #ffffff;
+}
+html.dark {
+  --bg: #191919;
+  --bg-alt: #202020;
+  --surface: #252525;
+  --text: rgba(255,255,255,0.95);
+  --text-secondary: #a39e98;
+  --text-muted: #6b6b6b;
+  --border: rgba(255,255,255,0.1);
+  --border-light: rgba(255,255,255,0.05);
+  --accent: #4a9eff;
+  --accent-hover: #6bb3ff;
+  --accent-bg: rgba(74,158,255,0.1);
+  --accent-text: #6bb3ff;
+  --shadow-sm: rgba(0,0,0,0.2) 0px 4px 18px, rgba(0,0,0,0.15) 0px 2.025px 7.84688px;
+  --shadow-md: rgba(0,0,0,0.1) 0px 1px 3px, rgba(0,0,0,0.15) 0px 3px 7px, rgba(0,0,0,0.2) 0px 7px 15px;
+  --success: #4ade80;
+  --success-bg: rgba(74,222,128,0.1);
+  --warning: #fb923c;
+  --warning-bg: rgba(251,146,60,0.1);
+  --error: #f87171;
+  --error-bg: rgba(248,113,113,0.1);
+  --card-hover: rgba(255,255,255,0.03);
+  --sidebar-bg: #1e1e1e;
+  --input-bg: #2a2a2a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Inter','Noto Sans JP',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;min-height:100vh}
+.app{display:flex;min-height:100vh}
+.sidebar{width:260px;background:var(--sidebar-bg);border-right:1px solid var(--border);position:fixed;top:0;left:0;bottom:0;z-index:100;display:flex;flex-direction:column;transition:transform 0.3s ease;overflow-y:auto}
+.sidebar-header{padding:20px 16px 12px;border-bottom:1px solid var(--border-light)}
+.sidebar-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.sidebar-logo-icon{width:32px;height:32px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;color:white}
+.sidebar-logo-text{font-size:15px;font-weight:600;letter-spacing:-0.2px}
+.sidebar-nav{flex:1;padding:8px;overflow-y:auto}
+.nav-section{margin-bottom:4px}
+.nav-section-title{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;padding:12px 8px 6px}
+.nav-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;cursor:pointer;transition:all 0.15s ease;font-size:14px;color:var(--text-secondary);text-decoration:none;user-select:none}
+.nav-item:hover{background:var(--card-hover);color:var(--text)}
+.nav-item.active{background:var(--accent-bg);color:var(--accent-text);font-weight:500}
+.nav-item-icon{font-size:18px;width:24px;text-align:center}
+.sidebar-footer{padding:12px 16px;border-top:1px solid var(--border-light)}
+.theme-toggle{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:14px;color:var(--text-secondary);background:none;border:none;width:100%;transition:all 0.15s ease}
+.theme-toggle:hover{background:var(--card-hover);color:var(--text)}
+.mobile-menu-btn{display:none;position:fixed;top:12px;left:12px;z-index:200;width:40px;height:40px;border-radius:8px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-sm);cursor:pointer;align-items:center;justify-content:center;font-size:20px;color:var(--text)}
+.main{flex:1;margin-left:260px;min-height:100vh}
+.content{max-width:960px;margin:0 auto;padding:40px 48px}
+h1{font-family:'Noto Serif JP',serif;font-size:2.5rem;font-weight:700;line-height:1.2;letter-spacing:-1px;margin-bottom:12px}
+h2{font-family:'Noto Serif JP',serif;font-size:1.75rem;font-weight:700;line-height:1.3;letter-spacing:-0.5px;margin-bottom:8px}
+h3{font-size:1.25rem;font-weight:600;line-height:1.4;margin-bottom:8px}
+.subtitle{font-size:1.125rem;color:var(--text-secondary);line-height:1.6;margin-bottom:32px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all 0.2s ease}
+.card:hover{box-shadow:var(--shadow-sm);border-color:var(--accent)}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:9999px;font-size:12px;font-weight:600;letter-spacing:0.3px}
+.badge-blue{background:var(--accent-bg);color:var(--accent-text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s ease;border:none;text-decoration:none}
+.btn-primary{background:var(--accent);color:white}
+.btn-primary:hover{background:var(--accent-hover);transform:scale(1.02)}
+.btn-secondary{background:var(--bg-alt);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--card-hover)}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--border);margin-bottom:24px;overflow-x:auto}
+.tab{padding:10px 16px;font-size:14px;font-weight:500;color:var(--text-secondary);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s ease;white-space:nowrap}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.kana-table{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
+.kana-cell{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s ease}
+.kana-cell:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.kana-char{font-family:'Noto Sans JP',sans-serif;font-size:1.5rem;font-weight:500;margin-bottom:4px;color:var(--text)}
+.kana-romaji{font-size:0.75rem;color:var(--text-muted)}
+.flashcard-container{perspective:1000px;margin:24px auto;max-width:400px}
+.flashcard{width:100%;height:240px;position:relative;cursor:pointer;transform-style:preserve-3d;transition:transform 0.6s ease}
+.flashcard.flipped{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--surface);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;padding:24px;box-shadow:var(--shadow-sm)}
+.flashcard-back{transform:rotateY(180deg)}
+.flashcard-word{font-family:'Noto Sans JP',sans-serif;font-size:2.5rem;font-weight:500;margin-bottom:8px}
+.flashcard-reading{font-size:1rem;color:var(--text-secondary)}
+.flashcard-meaning{font-size:1.25rem;font-weight:500;margin-bottom:8px}
+.flashcard-example{font-size:0.875rem;color:var(--text-secondary);text-align:center}
+.flashcard-controls{display:flex;gap:12px;justify-content:center;margin-top:20px}
+.quiz-option{display:block;width:100%;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;cursor:pointer;transition:all 0.15s ease;text-align:left;font-size:15px}
+.quiz-option:hover{border-color:var(--accent);background:var(--accent-bg)}
+.quiz-option.correct{border-color:var(--success);background:var(--success-bg)}
+.quiz-option.wrong{border-color:var(--error);background:var(--error-bg)}
+.quiz-progress{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.progress-bar{flex:1;height:6px;background:var(--bg-alt);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:3px;transition:width 0.3s ease}
+.section{display:none;animation:fadeIn 0.3s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.section-header{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border-light)}
+.grammar-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px}
+.grammar-pattern{font-family:'Noto Sans JP',sans-serif;font-size:1.125rem;font-weight:600;color:var(--accent);margin-bottom:8px}
+.grammar-meaning{font-size:0.9375rem;color:var(--text-secondary);margin-bottom:12px}
+.grammar-example{background:var(--bg-alt);border-radius:8px;padding:12px 16px;margin-top:8px}
+.grammar-example-jp{font-family:'Noto Sans JP',sans-serif;font-size:1rem;margin-bottom:4px}
+.grammar-example-cn{font-size:0.875rem;color:var(--text-secondary)}
+.dialog-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px}
+.dialog-title{font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.dialog-line{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.dialog-speaker{font-size:12px;font-weight:600;color:var(--accent);min-width:40px;padding-top:2px}
+.dialog-text{flex:1}
+.dialog-jp{font-family:'Noto Sans JP',sans-serif;font-size:0.9375rem;margin-bottom:2px}
+.dialog-cn{font-size:0.8125rem;color:var(--text-muted)}
+.search-box{display:flex;align-items:center;gap:8px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin-bottom:20px}
+.search-box input{flex:1;border:none;background:none;font-size:14px;color:var(--text);outline:none}
+.search-box input::placeholder{color:var(--text-muted)}
+.level-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;cursor:pointer;transition:all 0.2s ease}
+.level-card:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.level-icon{font-size:2rem;margin-bottom:12px}
+.level-title{font-size:1.125rem;font-weight:600;margin-bottom:4px}
+.level-desc{font-size:0.875rem;color:var(--text-secondary);margin-bottom:12px}
+.level-stats{display:flex;gap:16px}
+.level-stat{font-size:0.8125rem;color:var(--text-muted)}
+.level-stat strong{color:var(--text)}
+.word-list{margin-bottom:24px}
+.word-item{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border-light);cursor:pointer;transition:background 0.15s ease}
+.word-item:hover{background:var(--card-hover)}
+.word-jp{font-family:'Noto Sans JP',sans-serif;font-size:1.125rem;font-weight:500;min-width:120px}
+.word-reading{font-size:0.875rem;color:var(--text-muted);min-width:100px}
+.word-meaning{flex:1;font-size:0.9375rem}
+.word-pos{font-size:0.75rem;color:var(--text-muted);background:var(--bg-alt);padding:2px 8px;border-radius:4px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.stat-value{font-size:2rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:4px}
+.stat-label{font-size:0.8125rem;color:var(--text-muted)}
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);font-size:14px;cursor:pointer;margin-bottom:20px;transition:color 0.15s ease}
+.back-btn:hover{color:var(--accent)}
+.jlpt-nav{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.jlpt-tab{padding:8px 16px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s ease;background:var(--bg-alt);color:var(--text-secondary);border:1px solid transparent}
+.jlpt-tab:hover{color:var(--text);border-color:var(--border)}
+.jlpt-tab.active{background:var(--accent);color:white}
+.speak-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--accent-bg);color:var(--accent);border:none;cursor:pointer;font-size:16px;transition:all 0.15s ease}
+.speak-btn:hover{background:var(--accent);color:white}
+.overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:90}
+.overlay.show{display:block}
+@media(max-width:768px){
+.sidebar{transform:translateX(-100%)}
+.sidebar.open{transform:translateX(0)}
+.mobile-menu-btn{display:flex}
+.main{margin-left:0}
+.content{padding:60px 20px 24px}
+h1{font-size:1.75rem}
+h2{font-size:1.375rem}
+.card-grid{grid-template-columns:1fr}
+.kana-table{grid-template-columns:repeat(5,1fr);gap:6px}
+.kana-char{font-size:1.25rem}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.flashcard{height:200px}
+.flashcard-word{font-size:2rem}
+}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
+</style>
+</head>
+<body>
+<div class="app">
+<button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-header">
+<div class="sidebar-logo">
+<div class="sidebar-logo-icon">あ</div>
+<span class="sidebar-logo-text">日语学习</span>
+</div>
+</div>
+<nav class="sidebar-nav">
+<div class="nav-section">
+<div class="nav-section-title">阶段一 · 实用交流</div>
+<a class="nav-item active" data-section="home" onclick="showSection('home')"><span class="nav-item-icon">🏠</span><span>首页</span></a>
+<a class="nav-item" data-section="kana" onclick="showSection('kana')"><span class="nav-item-icon">あ</span><span>五十音图</span></a>
+<a class="nav-item" data-section="greetings" onclick="showSection('greetings')"><span class="nav-item-icon">👋</span><span>日常问候</span></a>
+<a class="nav-item" data-section="vocab-basic" onclick="showSection('vocab-basic')"><span class="nav-item-icon">📚</span><span>基础词汇</span></a>
+<a class="nav-item" data-section="phrases" onclick="showSection('phrases')"><span class="nav-item-icon">💬</span><span>常用句型</span></a>
+<a class="nav-item" data-section="dialogs" onclick="showSection('dialogs')"><span class="nav-item-icon">🗣️</span><span>场景对话</span></a>
+<a class="nav-item" data-section="grammar-basic" onclick="showSection('grammar-basic')"><span class="nav-item-icon">📖</span><span>基础语法</span></a>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">阶段二 · JLPT考试</div>
+<a class="nav-item" data-section="jlpt" onclick="showSection('jlpt')"><span class="nav-item-icon">🎯</span><span>JLPT概览</span></a>
+<a class="nav-item" data-section="jlpt-n5" onclick="showSection('jlpt-n5')"><span class="nav-item-icon">📗</span><span>N5 入门</span></a>
+<a class="nav-item" data-section="jlpt-n4" onclick="showSection('jlpt-n4')"><span class="nav-item-icon">📘</span><span>N4 初级</span></a>
+<a class="nav-item" data-section="jlpt-n3" onclick="showSection('jlpt-n3')"><span class="nav-item-icon">📙</span><span>N3 中级</span></a>
+<a class="nav-item" data-section="jlpt-n2" onclick="showSection('jlpt-n2')"><span class="nav-item-icon">📕</span><span>N2 中高级</span></a>
+<a class="nav-item" data-section="jlpt-n1" onclick="showSection('jlpt-n1')"><span class="nav-item-icon">🏆</span><span>N1 高级</span></a>
+</div>
+<div class="nav-section">
+<div class="nav-section-title">练习</div>
+<a class="nav-item" data-section="flashcard" onclick="showSection('flashcard')"><span class="nav-item-icon">🃏</span><span>闪卡练习</span></a>
+<a class="nav-item" data-section="quiz" onclick="showSection('quiz')"><span class="nav-item-icon">✅</span><span>词汇测试</span></a>
+</div>
+</nav>
+<div class="sidebar-footer">
+<button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span><span id="themeText">暗黑模式</span></button>
+</div>
+</aside>
+<main class="main">
+<div class="content">
+<!-- Home -->
+<div class="section active" id="section-home">
+<div class="section-header">
+<h1>日本語を学ぼう</h1>
+<p class="subtitle">从零开始，轻松掌握日语。无论是日常交流还是备考JLPT，都能找到适合你的学习路径。</p>
+</div>
+<div class="stats-grid">
+<div class="stat-card"><div class="stat-value" id="stat-kana">0</div><div class="stat-label">已学假名</div></div>
+<div class="stat-card"><div class="stat-value" id="stat-vocab">0</div><div class="stat-label">已学词汇</div></div>
+<div class="stat-card"><div class="stat-value" id="stat-streak">0</div><div class="stat-label">连续天数</div></div>
+<div class="stat-card"><div class="stat-value" id="stat-quiz">0%</div><div class="stat-label">测试正确率</div></div>
+</div>
+<h2>选择你的学习路径</h2>
+<div class="card-grid" style="margin-top:16px">
+<div class="card" onclick="showSection('kana')"><div style="font-size:2rem;margin-bottom:12px">🇯🇵</div><div class="card-title">阶段一：实用交流</div><div class="card-desc">掌握五十音、基础词汇、日常问候和常用句型，能够与日本人进行基本交流。</div></div>
+<div class="card" onclick="showSection('jlpt')"><div style="font-size:2rem;margin-bottom:12px">🎓</div><div class="card-title">阶段二：JLPT考试</div><div class="card-desc">从N5到N1，系统学习日语能力考试所需的词汇、语法和阅读能力。</div></div>
+</div>
+<h2>快速开始</h2>
+<div class="card-grid" style="margin-top:16px">
+<div class="card" onclick="showSection('kana')"><div class="card-title">あ 五十音图</div><div class="card-desc">日语的基础，掌握平假名和片假名</div></div>
+<div class="card" onclick="showSection('greetings')"><div class="card-title">👋 问候语</div><div class="card-desc">学会最基本的日语打招呼方式</div></div>
+<div class="card" onclick="showSection('flashcard')"><div class="card-title">🃏 闪卡练习</div><div class="card-desc">通过闪卡快速记忆词汇</div></div>
+</div>
+</div>
+<!-- Kana -->
+<div class="section" id="section-kana">
+<div class="section-header">
+<div class="back-btn" onclick="showSection('home')">← 返回首页</div>
+<h1>五十音图</h1>
+<p class="subtitle">日语的基础字母表，包含平假名和片假名。点击假名可以听到发音。</p>
+</div>
+<div class="tabs">
+<div class="tab active" onclick="switchKanaTab('hiragana')">平假名</div>
+<div class="tab" onclick="switchKanaTab('katakana')">片假名</div>
+<div class="tab" onclick="switchKanaTab('dakuten')">浊音·半浊音</div>
+<div class="tab" onclick="switchKanaTab('combo')">拗音</div>
+</div>
+<div id="kanaContent"></div>
+</div>
+<!-- Greetings -->
+<div class="section" id="section-greetings">
+<div class="section-header">
+<div class="back-btn" onclick="showSection('home')">← 返回首页</div>
+<h1>日常问候</h1>
+<p class="subtitle">掌握最基本的日语问候语，让你在日本交流无障碍。</p>
+</div>
+<div class="card-grid" id="greetingsContent"></div>
+</div>
+<!-- Vocab Basic -->
+<div class="section" id="section-vocab-basic">
+<div class="section-header">
+<div class="back-btn" onclick="showSection('home')">← 返回首页</div>
+<h1>基础词汇</h1>
+<p class="subtitle">掌握日常生活中最常用的日语词汇，为交流打下基础。</p>
+</div>
+<div class="tabs">
+<div class="tab active" onclick="switchVocabTab('numbers')">数字</div>
+<div class="tab" onclick="switchVocabTab('time')">时间</div>
+<div class="tab" onclick="switchVocabTab('family')">家庭</div>
+<div class="tab" onclick="switchVocabTab('color')">颜色</div>
+<div class="tab" onclick="switchVocabTab('direction')">方位</div>
+<div class="tab" onclick="switchVocabTab('body')">身体</div>
+</div>
+<div class="search-box"><span>🔍</span><input type="text" placeholder="搜索词汇..." id="vocabSearch" oninput="filterVocab()"></div>
+<div class="word-list" id="vocabList"></div>
+</div>
+<!-- Phrases -->
+<div class="section" id="section-phrases">
+<div class="section-header">
+<div class="back-btn" onclick="showSection('home')">← 返回首页</div>
+<h1>常用句型</h1>
+<p class="subtitle">掌握这些实用句型，让你的日语表达更自然流畅。</p>
+</div>
+<div class="tabs">
+<div class="tab active" onclick="switchPhraseTab('basic')">基本表达</div>
+<div class="tab" onclick="switchPhraseTab('question')">疑问句</div>
+<div class="tab" onclick="switchPhraseTab('request')">请求·许可</div>
+<div class="tab" onclick="switchPhraseTab('feeling')">情感表达</div>
+</div>
+<div id="phraseContent"></div>
+</div>
+<!-- Dialogs -->
+<div class="section" id="section-dialogs">
+<div class="section-header">
+<div class="back-btn" onclick="showSection('home')">← 返回首页</div>
+<h1>场景对话</h1>
+<p class="subtitle">通过真实场景对话，学习地道的日语表达方式。</p>
+</div>
+<div class="tabs">
+<div class="tab active" onclick="switchDialogTab('restaurant')">餐厅</div>
+<div class="tab" onclick="switchDialogTab('shopping')">购物</div>
+<div class="tab" onclick="switchDialogTab('directions')">问路</div>
+<div class="tab" onclick="switchDialogTab('hotel')">酒店</div>
+<div class="tab" onclick="switchDialogTab('selfintro')">自我介绍</div>
+</div>
+<div id="dialogContent"></div>
+</div>
+<!-- Grammar Basic -->
+<div class="section" id="section-grammar-basic">
+<div class="section-header">
+<div class="back-btn" onclick="showSection('home')">← 返回首页</div>
+<h1>基础语法</h1>
+<p class="subtitle">掌握日语最基本的语法结构，让你能够造出正确的句子。</p>
+</div>
+<div id="grammarBasicContent"></div>
+</div>
+<!-- JLPT Overview -->
+<div class="section" id="section-jlpt">
+<div class="section-header">
+<div class="back-btn" onclick="showSection('home')">← 返回首页</div>
+<h1>JLPT 日语能力考试</h1>
+<p class="subtitle">日本语能力测试（JLPT）是国际公认的日语能力认证，分为N5（入门）到N1（高级）五个级别。</p>
+</div>
+<div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">
+<div class="level-card" onclick="showSection('jlpt-n5')"><div class="level-icon">📗</div><div class="level-title">N5 入门</div><div class="level-desc">掌握基础日语，能理解简单的句子和对话。</div><div class="level-stats"><div class="level-stat">词汇 <strong>800</strong></div><div class="level-stat">语法 <strong>50</strong></div></div></div>
+<div class="level-card" onclick="showSection('jlpt-n4')"><div class="level-icon">📘</div><div class="level-title">N4 初级</div><div class="level-desc">理解日常日语对话，能阅读简单的文章。</div><div class="level-stats"><div class="level-stat">词汇 <strong>1500</strong></div><div class="level-stat">语法 <strong>100</strong></div></div></div>
+<div class="level-card" onclick="showSection('jlpt-n3')"><div class="level-icon">📙</div><div class="level-title">N3 中级</div><div class="level-desc">理解日常场景中的日语，能阅读报纸标题。</div><div class="level-stats"><div class="level-stat">词汇 <strong>3000</strong></div><div class="level-stat">语法 <strong>200</strong></div></div></div>
+<div class="level-card" onclick="showSection('jlpt-n2')"><div class="level-icon">📕</div><div class="level-title">N2 中高级</div><div class="level-desc">理解各种场景的日语，能阅读报纸和杂志。</div><div class="level-stats"><div class="level-stat">词汇 <strong>6000</strong></div><div class="level-stat">语法 <strong>300</strong></div></div></div>
+<div class="level-card" onclick="showSection('jlpt-n1')"><div class="level-icon">🏆</div><div class="level-title">N1 高级</div><div class="level-desc">理解各种场景的日语，包括抽象话题。</div><div class="level-stats"><div class="level-stat">词汇 <strong>10000</strong></div><div class="level-stat">语法 <strong>500</strong></div></div></div>
+</div>
+</div>
+<!-- JLPT N5 -->
+<div class="section" id="section-jlpt-n5">
+<div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N5 入门级</h1><p class="subtitle">掌握基础日语，能够理解简单的句子和日常表达。</p></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n5','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n5','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n5','reading')">阅读</div></div>
+<div id="jlpt-n5-content"></div>
+</div>
+<!-- JLPT N4 -->
+<div class="section" id="section-jlpt-n4">
+<div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N4 初级</h1><p class="subtitle">理解日常日语对话，能够阅读简单的文章。</p></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n4','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n4','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n4','reading')">阅读</div></div>
+<div id="jlpt-n4-content"></div>
+</div>
+<!-- JLPT N3 -->
+<div class="section" id="section-jlpt-n3">
+<div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N3 中级</h1><p class="subtitle">理解日常场景中的日语，能够阅读报纸标题和简单文章。</p></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n3','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n3','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n3','reading')">阅读</div></div>
+<div id="jlpt-n3-content"></div>
+</div>
+<!-- JLPT N2 -->
+<div class="section" id="section-jlpt-n2">
+<div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N2 中高级</h1><p class="subtitle">理解各种场景的日语，能够阅读报纸和杂志。</p></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n2','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n2','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n2','reading')">阅读</div></div>
+<div id="jlpt-n2-content"></div>
+</div>
+<!-- JLPT N1 -->
+<div class="section" id="section-jlpt-n1">
+<div class="section-header"><div class="back-btn" onclick="showSection('jlpt')">← JLPT概览</div><h1>N1 高级</h1><p class="subtitle">理解各种场景的日语，包括抽象话题和复杂表达。</p></div>
+<div class="jlpt-nav"><div class="jlpt-tab active" onclick="switchJlptTab('n1','vocab')">词汇</div><div class="jlpt-tab" onclick="switchJlptTab('n1','grammar')">语法</div><div class="jlpt-tab" onclick="switchJlptTab('n1','reading')">阅读</div></div>
+<div id="jlpt-n1-content"></div>
+</div>
+<!-- Flashcard -->
+<div class="section" id="section-flashcard">
+<div class="section-header"><div class="back-btn" onclick="showSection('home')">← 返回首页</div><h1>闪卡练习</h1><p class="subtitle">通过闪卡快速记忆日语词汇，点击卡片翻转查看释义。</p></div>
+<div class="tabs"><div class="tab active" onclick="switchFlashcardSet('basic')">基础词汇</div><div class="tab" onclick="switchFlashcardSet('n5')">N5词汇</div><div class="tab" onclick="switchFlashcardSet('n4')">N4词汇</div></div>
+<div class="flashcard-container">
+<div class="flashcard" id="flashcard" onclick="flipCard()">
+<div class="flashcard-front"><div class="flashcard-word" id="fc-front-word">食べる</div><div class="flashcard-reading" id="fc-front-reading">たべる</div></div>
+<div class="flashcard-back"><div class="flashcard-meaning" id="fc-back-meaning">吃</div><div class="flashcard-example" id="fc-back-example">朝ご飯を食べる。/ 吃早饭。</div></div>
+</div>
+</div>
+<div class="flashcard-controls"><button class="btn btn-secondary" onclick="prevCard()">⬅ 上一个</button><button class="btn btn-primary" onclick="nextCard()">下一个 ➡</button></div>
+<div style="text-align:center;margin-top:16px;color:var(--text-muted);font-size:0.875rem"><span id="fc-counter">1 / 20</span></div>
+</div>
+<!-- Quiz -->
+<div class="section" id="section-quiz">
+<div class="section-header"><div class="back-btn" onclick="showSection('home')">← 返回首页</div><h1>词汇测试</h1><p class="subtitle">测试你的日语词汇掌握程度，选择正确的中文意思。</p></div>
+<div class="tabs"><div class="tab active" onclick="switchQuizSet('basic')">基础词汇</div><div class="tab" onclick="switchQuizSet('n5')">N5词汇</div></div>
+<div class="quiz-progress"><span id="quiz-current">1</span> / <span id="quiz-total">10</span><div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:10%"></div></div></div>
+<div class="card" style="margin-bottom:24px"><div style="text-align:center"><div class="flashcard-word" id="quiz-word" style="font-size:3rem;margin-bottom:8px">食べる</div><div class="flashcard-reading" id="quiz-reading" style="color:var(--text-muted)">たべる</div></div></div>
+<div id="quiz-options"></div>
+<div style="text-align:center;margin-top:16px"><button class="btn btn-primary" id="quiz-next" onclick="nextQuizQuestion()" style="display:none">下一题 ➡</button></div>
+</div>
+</div>
+</main>
+</div>
+<script>
+// ===== Data =====
+var hiragana=[['あ','a'],['い','i'],['う','u'],['え','e'],['お','o'],['か','ka'],['き','ki'],['く','ku'],['け','ke'],['こ','ko'],['さ','sa'],['し','shi'],['す','su'],['せ','se'],['そ','so'],['た','ta'],['ち','chi'],['つ','tsu'],['て','te'],['と','to'],['な','na'],['に','ni'],['ぬ','nu'],['ね','ne'],['の','no'],['は','ha'],['ひ','hi'],['ふ','fu'],['へ','he'],['ほ','ho'],['ま','ma'],['み','mi'],['む','mu'],['め','me'],['も','mo'],['や','ya'],['ゆ','yu'],['よ','yo'],['ら','ra'],['り','ri'],['る','ru'],['れ','re'],['ろ','ro'],['わ','wa'],['を','wo'],['ん','n']];
+var katakana=[['ア','a'],['イ','i'],['ウ','u'],['エ','e'],['オ','o'],['カ','ka'],['キ','ki'],['ク','ku'],['ケ','ke'],['コ','ko'],['サ','sa'],['シ','shi'],['ス','su'],['セ','se'],['ソ','so'],['タ','ta'],['チ','chi'],['ツ','tsu'],['テ','te'],['ト','to'],['ナ','na'],['ニ','ni'],['ヌ','nu'],['ネ','ne'],['ノ','no'],['ハ','ha'],['ヒ','hi'],['フ','fu'],['ヘ','he'],['ホ','ho'],['マ','ma'],['ミ','mi'],['ム','mu'],['メ','me'],['モ','mo'],['ヤ','ya'],['ユ','yu'],['ヨ','yo'],['ラ','ra'],['リ','ri'],['ル','ru'],['レ','re'],['ロ','ro'],['ワ','wa'],['ヲ','wo'],['ン','n']];
+var dakuten=[['が','ga'],['ぎ','gi'],['ぐ','gu'],['げ','ge'],['ご','go'],['ざ','za'],['じ','ji'],['ず','zu'],['ぜ','ze'],['ぞ','zo'],['だ','da'],['ぢ','di'],['づ','du'],['で','de'],['ど','do'],['ば','ba'],['び','bi'],['ぶ','bu'],['べ','be'],['ぼ','bo'],['ぱ','pa'],['ぴ','pi'],['ぷ','pu'],['ぺ','pe'],['ぽ','po']];
+var comboKana=[['きゃ','kya'],['きゅ','kyu'],['きょ','kyo'],['しゃ','sha'],['しゅ','shu'],['しょ','sho'],['ちゃ','cha'],['ちゅ','chu'],['ちょ','cho'],['にゃ','nya'],['にゅ','nyu'],['にょ','nyo'],['ひゃ','hya'],['ひゅ','hyu'],['ひょ','hyo'],['みゃ','mya'],['みゅ','myu'],['みょ','myo'],['りゃ','rya'],['りゅ','ryu'],['りょ','ryo'],['ぎゃ','gya'],['ぎゅ','gyu'],['ぎょ','gyo'],['じゃ','ja'],['じゅ','ju'],['じょ','jo'],['びゃ','bya'],['びゅ','byu'],['びょ','byo'],['ぴゃ','pya'],['ぴゅ','pyu'],['ぴょ','pyo']];
+var greetingsData=[
+{jp:'おはようございます',cn:'早上好（正式）',roma:'ohayō gozaimasu'},
+{jp:'おはよう',cn:'早上好（对朋友）',roma:'ohayō'},
+{jp:'こんにちは',cn:'你好（白天）',roma:'konnichiwa'},
+{jp:'こんばんは',cn:'晚上好',roma:'konbanwa'},
+{jp:'さようなら',cn:'再见',roma:'sayōnara'},
+{jp:'じゃあね',cn:'再见（朋友间）',roma:'jaa ne'},
+{jp:'おやすみなさい',cn:'晚安',roma:'oyasuminasai'},
+{jp:'ありがとうございます',cn:'谢谢（正式）',roma:'arigatō gozaimasu'},
+{jp:'ありがとう',cn:'谢谢（朋友间）',roma:'arigatō'},
+{jp:'すみません',cn:'对不起/打扰一下',roma:'sumimasen'},
+{jp:'ごめんなさい',cn:'对不起',roma:'gomen nasai'},
+{jp:'いただきます',cn:'我开动了（饭前）',roma:'itadakimasu'},
+{jp:'ごちそうさまでした',cn:'多谢款待（饭后）',roma:'gochisōsama deshita'},
+{jp:'お元気ですか',cn:'你好吗？',roma:'ogenki desu ka'},
+{jp:'はい',cn:'是',roma:'hai'},
+{jp:'いいえ',cn:'不是',roma:'iie'}
+];
+var vocabData={
+numbers:[
+['零','れい','rei','零','名'],['一','いち','ichi','一','名'],['二','に','ni','二','名'],['三','さん','san','三','名'],
+['四','よん','yon','四','名'],['五','ご','go','五','名'],['六','ろく','roku','六','名'],['七','なな','nana','七','名'],
+['八','はち','hachi','八','名'],['九','きゅう','kyū','九','名'],['十','じゅう','jū','十','名'],['百','ひゃく','hyaku','百','名'],
+['千','せん','sen','千','名'],['万','まん','man','万','名'],['何','なん','nan','几','疑']
+],
+time:[
+['今日','きょう','kyō','今天','名'],['昨日','きのう','kinō','昨天','名'],['明日','あした','ashita','明天','名'],
+['朝','あさ','asa','早上','名'],['昼','ひる','hiru','中午','名'],['夜','よる','yoru','晚上','名'],
+['今','いま','ima','现在','名'],['時間','じかん','jikan','时间','名'],['年','ねん','nen','年','名'],
+['月','つき','tsuki','月','名'],['日','ひ','hi','日','名'],['時','じ','ji','时','名'],
+['分','ふん','fun','分','名'],['半','はん','han','半','名'],['週','しゅう','shū','周','名'],
+['毎日','まいにち','mainichi','每天','名'],['先週','せんしゅう','senshū','上周','名'],['来週','らいしゅう','raishū','下周','名']
+],
+family:[
+['家族','かぞく','kazoku','家族','名'],['父','ちち','chichi','父亲（谦称）','名'],['母','はは','haha','母亲（谦称）','名'],
+['お父さん','おとうさん','otōsan','父亲（敬称）','名'],['お母さん','おかあさん','okāsan','母亲（敬称）','名'],
+['兄','あに','ani','哥哥（谦称）','名'],['姉','あね','ane','姐姐（谦称）','名'],
+['弟','おとうと','otōto','弟弟','名'],['妹','いもうと','imōto','妹妹','名'],
+['子供','こども','kodomo','孩子','名'],['夫','おっと','otto','丈夫','名'],['妻','つま','tsuma','妻子','名']
+],
+color:[
+['色','いろ','iro','颜色','名'],['赤','あか','aka','红色','形'],['青','あお','ao','蓝色','形'],
+['白','しろ','shiro','白色','形'],['黒','くろ','kuro','黑色','形'],['黄色','きいろ','kiiro','黄色','形'],
+['緑','みどり','midori','绿色','形'],['紫','むらさき','murasaki','紫色','形'],['茶色','ちゃいろ','chairo','棕色','形'],
+['ピンク','ピンク','pinku','粉色','形'],['オレンジ','オレンジ','orenji','橙色','形'],['灰色','はいいろ','haiiro','灰色','形']
+],
+direction:[
+['上','うえ','ue','上','名'],['下','した','shita','下','名'],['左','ひだり','hidari','左','名'],
+['右','みぎ','migi','右','名'],['前','まえ','mae','前','名'],['後ろ','うしろ','ushiro','后','名'],
+['中','なか','naka','里','名'],['外','そと','soto','外','名'],['隣','となり','tonari','旁边','名'],
+['ここ','ここ','koko','这里','代'],['そこ','そこ','soko','那里','代'],['あそこ','あそこ','asoko','那里（远）','代'],['どこ','どこ','doko','哪里','疑']
+],
+body:[
+['頭','あたま','atama','头','名'],['顔','かお','kao','脸','名'],['目','め','me','眼睛','名'],
+['耳','みみ','mimi','耳朵','名'],['口','くち','kuchi','嘴','名'],['鼻','はな','hana','鼻子','名'],
+['手','て','te','手','名'],['足','あし','ashi','脚','名'],['指','ゆび','yubi','手指','名'],
+['髪','かみ','kami','头发','名'],['体','からだ','karada','身体','名'],['首','くび','kubi','脖子','名']
+]
+};
+var phraseData={
+basic:[
+['私は～です','watashi wa ~ desu','我是～','自我介绍'],['～は～です','~ wa ~ desu','～是～','判断句'],
+['～が好きです','~ ga suki desu','喜欢～','表达喜好'],['～をください','~ o kudasai','请给我～','请求'],
+['～に行きます','~ ni ikimasu','去～','表示方向'],['～で食べます','~ de tabemasu','在～吃','表示地点'],
+['～と話します','~ to hanashimasu','和～说话','表示对象']
+],
+question:[
+['これは何ですか？','kore wa nan desu ka','这是什么？','询问物品'],['どこですか？','doko desu ka','在哪里？','询问地点'],
+['いつですか？','itsu desu ka','什么时候？','询问时间'],['いくらですか？','ikura desu ka','多少钱？','询问价格'],
+['どうしてですか？','dōshite desu ka','为什么？','询问原因'],['だれですか？','dare desu ka','是谁？','询问人物']
+],
+request:[
+['～てもいいですか？','~ te mo ii desu ka','可以～吗？','请求许可'],['～てください','~ te kudasai','请～','请求'],
+['～ないでください','~ naide kudasai','请不要～','否定请求'],['～たいです','~ tai desu','想～','表达愿望'],
+['～てもらえますか？','~ te moraemasu ka','能帮我～吗？','礼貌请求']
+],
+feeling:[
+['嬉しいです','ureshii desu','很开心','喜悦'],['悲しいです','kanashii desu','很悲伤','悲伤'],
+['楽しいです','tanoshii desu','很愉快','快乐'],['疲れました','tsukaremashita','累了','疲劳'],
+['心配です','shinpai desu','担心','担心'],['大丈夫です','daijōbu desu','没关系/没问题','安心']
+]
+};
+var dialogData={
+restaurant:{title:'在餐厅',lines:[
+{speaker:'店员',jp:'いらっしゃいませ。何名様ですか？',cn:'欢迎光临。几位？'},
+{speaker:'客人',jp:'二人です。',cn:'两位。'},
+{speaker:'店员',jp:'こちらへどうぞ。メニューをどうぞ。',cn:'这边请。这是菜单。'},
+{speaker:'客人',jp:'すみません、注文お願いします。',cn:'不好意思，我要点餐。'},
+{speaker:'店员',jp:'はい、何になさいますか？',cn:'好的，您要点什么？'},
+{speaker:'客人',jp:'ラーメンと餃子をください。',cn:'请给我拉面和饺子。'},
+{speaker:'店员',jp:'かしこまりました。お飲み物は？',cn:'好的。饮料呢？'},
+{speaker:'客人',jp:'お水をください。',cn:'请给我水。'},
+{speaker:'店员',jp:'お会計は2000円です。',cn:'一共2000日元。'},
+{speaker:'客人',jp:'はい、どうぞ。',cn:'好的，给你。'}
+]},
+shopping:{title:'购物',lines:[
+{speaker:'店员',jp:'いらっしゃいませ。',cn:'欢迎光临。'},
+{speaker:'客人',jp:'このTシャツはいくらですか？',cn:'这件T恤多少钱？'},
+{speaker:'店员',jp:'2500円です。',cn:'2500日元。'},
+{speaker:'客人',jp:'もう少し安くなりますか？',cn:'能便宜一点吗？'},
+{speaker:'店员',jp:'すみません、定価です。',cn:'不好意思，这是定价。'},
+{speaker:'客人',jp:'じゃ、これをください。',cn:'那我要这个。'},
+{speaker:'店员',jp:'袋はご利用ですか？',cn:'需要袋子吗？'},
+{speaker:'客人',jp:'はい、お願いします。',cn:'是的，麻烦了。'}
+]},
+directions:{title:'问路',lines:[
+{speaker:'路人',jp:'すみません、駅はどこですか？',cn:'不好意思，车站在哪里？'},
+{speaker:'你',jp:'この道をまっすぐ行ってください。',cn:'请沿着这条路直走。'},
+{speaker:'路人',jp:'ここから遠いですか？',cn:'从这里远吗？'},
+{speaker:'你',jp:'歩いて10分ぐらいです。',cn:'步行大约10分钟。'},
+{speaker:'路人',jp:'右に曲がりますか？',cn:'往右转吗？'},
+{speaker:'你',jp:'いいえ、左に曲がってください。',cn:'不，请往左转。'},
+{speaker:'路人',jp:'ありがとうございました。',cn:'谢谢。'},
+{speaker:'你',jp:'どういたしまして。',cn:'不客气。'}
+]},
+hotel:{title:'酒店',lines:[
+{speaker:'前台',jp:'いらっしゃいませ。ご予約はございますか？',cn:'欢迎光临。您有预约吗？'},
+{speaker:'客人',jp:'はい、予約した田中です。',cn:'是的，我是预约过的田中。'},
+{speaker:'前台',jp:'お部屋は305号室です。カギをお渡しします。',cn:'您的房间是305号。给您钥匙。'},
+{speaker:'客人',jp:'チェックアウトは何時ですか？',cn:'退房是几点？'},
+{speaker:'前台',jp:'朝10時までです。',cn:'早上10点之前。'},
+{speaker:'客人',jp:'朝食は何時からですか？',cn:'早餐几点开始？'},
+{speaker:'前台',jp:'7時から9時までです。',cn:'7点到9点。'}
+]},
+selfintro:{title:'自我介绍',lines:[
+{speaker:'你',jp:'はじめまして。田中と申します。',cn:'初次见面，我叫田中。'},
+{speaker:'你',jp:'中国から参りました。',cn:'我从中国来。'},
+{speaker:'你',jp:'大学で日本語を勉強しています。',cn:'我在大学学习日语。'},
+{speaker:'你',jp:'趣味は音楽を聴くことです。',cn:'爱好是听音乐。'},
+{speaker:'你',jp:'よろしくお願いします。',cn:'请多关照。'},
+{speaker:'对方',jp:'こちらこそ、よろしくお願いします。',cn:'彼此彼此，请多关照。'},
+{speaker:'对方',jp:'日本語はお上手ですね。',cn:'你日语说得真好。'},
+{speaker:'你',jp:'いいえ、まだまだです。',cn:'不，还差得远呢。'}
+]}
+};
+var grammarBasicData=[
+{pattern:'～は～です',meaning:'表示判断或说明。"～是～"',example:'私は学生です。',trans:'我是学生。'},
+{pattern:'～は～ではありません',meaning:'否定判断。"～不是～"',example:'これは本ではありません。',trans:'这不是书。'},
+{pattern:'～は～ですか',meaning:'疑问句。"～是～吗？"',example:'あなたは日本人ですか？',trans:'你是日本人吗？'},
+{pattern:'～の～',meaning:'表示所属关系。"～的～"',example:'私の名前は田中です。',trans:'我的名字是田中。'},
+{pattern:'～を～ます',meaning:'表示动作的对象',example:'ご飯を食べます。',trans:'吃饭。'},
+{pattern:'～に～ます',meaning:'表示动作的方向或时间点',example:'学校に行きます。',trans:'去学校。'},
+{pattern:'～で～ます',meaning:'表示动作进行的地点',example:'図書館で勉強します。',trans:'在图书馆学习。'},
+{pattern:'～と～',meaning:'表示并列或共同。"和～"',example:'友達と遊びます。',trans:'和朋友玩。'},
+{pattern:'～が好きです',meaning:'表示喜好。"喜欢～"',example:'日本料理が好きです。',trans:'喜欢日本料理。'},
+{pattern:'～たいです',meaning:'表示愿望。"想～"',example:'日本に行きたいです。',trans:'想去日本。'},
+{pattern:'～てください',meaning:'请求。"请～"',example:'座ってください。',trans:'请坐。'},
+{pattern:'～ないでください',meaning:'否定请求。"请不要～"',example:'写真を撮らないでください。',trans:'请不要拍照。'},
+{pattern:'～てもいいですか',meaning:'请求许可。"可以～吗？"',example:'ここに座ってもいいですか？',trans:'我可以坐这里吗？'},
+{pattern:'～から～まで',meaning:'从～到～。表示范围',example:'9時から5時まで働きます。',trans:'从9点工作到5点。'},
+{pattern:'～ている',meaning:'表示正在进行或状态持续',example:'本を読んでいます。',trans:'正在读书。'}
+];
+var jlptVocab={
+n5:[
+['会う','あう','au','见面','动'],['上がる','あがる','agaru','上升','动'],
+['開く','あく','aku','开','动'],['開ける','あける','akeru','打开','动'],
+['上げる','あげる','ageru','给/提高','动'],['遊ぶ','あそぶ','asobu','玩','动'],
+['集める','あつめる','atsumeru','收集','动'],['当たる','あたる','ataru','命中','动'],
+['案内する','あんないする','annai suru','引导','动'],['生きる','いきる','ikiru','生活','动'],
+['行く','いく','iku','去','动'],['言う','いう','iu','说','动'],
+['居る','いる','iru','在','动'],['入れる','いれる','ireru','放入','动'],
+['受ける','うける','ukeru','接受','动'],['動く','うごく','ugoku','动','动'],
+['売る','うる','uru','卖','动'],['起きる','おきる','okiru','起床','动'],
+['置く','おく','oku','放','动'],['送る','おくる','okuru','送','动'],
+['押す','おす','osu','推','动'],['覚える','おぼえる','oboeru','记住','动'],
+['泳ぐ','およぐ','oyogu','游泳','动'],['降りる','おりる','oriru','下车','动'],
+['買う','かう','kau','买','动'],['帰る','かえる','kaeru','回去','动'],
+['掛かる','かかる','kakaru','花费','动'],['書く','かく','kaku','写','动'],
+['聞く','きく','kiku','听/问','动'],['切る','きる','kiru','切','动'],
+['来る','くる','kuru','来','动'],['消す','けす','kesu','关/消除','动'],
+['知る','しる','shiru','知道','动'],['住む','すむ','sumu','住','动'],
+['座る','すわる','suwaru','坐','动'],['出す','だす','dasu','拿出','动'],
+['食べる','たべる','taberu','吃','动'],['頼む','たのむ','tanomu','拜托','动'],
+['使う','つかう','tsukau','使用','动'],['着く','つく','tsuku','到达','动'],
+['作る','つくる','tsukuru','制作','动'],['勤める','つとめる','tsutomeru','工作','动'],
+['出る','でる','deru','出去','动'],['飛ぶ','とぶ','tobu','飞','动'],
+['止まる','とまる','tomaru','停止','动'],['取る','とる','toru','取','动'],
+['撮る','とる','toru','拍照','动'],['泣く','なく','naku','哭','动'],
+['習う','ならう','narau','学习','动'],['並ぶ','ならぶ','narabu','排队','动'],
+['脱ぐ','ぬぐ','nugu','脱','动'],['残る','のこる','nokoru','留下','动'],
+['飲む','のむ','nomu','喝','动'],['登る','のぼる','noboru','攀登','动'],
+['乗る','のる','noru','乘坐','动'],['入る','はいる','hairu','进入','动'],
+['始まる','はじまる','hajimaru','开始','动'],['走る','はしる','hashiru','跑','动'],
+['話す','はなす','hanasu','说','动'],['弾く','ひく','hiku','弹','动'],
+['引く','ひく','hiku','拉','动'],['吹く','ふく','fuku','吹','动'],
+['太る','ふとる','futoru','变胖','动'],['降る','ふる','furu','下（雨/雪）','动'],
+['曲がる','まがる','magaru','转弯','动'],['待つ','まつ','matsu','等','动'],
+['磨く','みがく','migaku','磨/刷','动'],['見る','みる','miru','看','动'],
+['持つ','もつ','motsu','拿','动'],['貰う','もらう','morau','得到','动'],
+['優しい','やさしい','yasashii','温柔的','形'],['安い','やすい','yasui','便宜的','形'],
+['悪い','わるい','warui','坏的','形'],['大きい','おおきい','ōkii','大的','形'],
+['小さい','ちいさい','chiisai','小的','形'],['新しい','あたらしい','atarashii','新的','形'],
+['古い','ふるい','furui','旧的','形'],['暑い','あつい','atsui','热的','形'],
+['寒い','さむい','samui','冷的','形'],['高い','たかい','takai','高的/贵的','形'],
+['低い','ひくい','hikui','矮的/低的','形'],['長い','ながい','nagai','长的','形'],
+['短い','みじかい','mijikai','短的','形'],['明るい','あかるい','akarui','明亮的','形'],
+['暗い','くらい','kurai','暗的','形'],['早い','はやい','hayai','早的','形'],
+['遅い','おそい','osoi','慢的/晚的','形'],['楽しい','たのしい','tanoshii','快乐的','形'],
+['美味しい','おいしい','oishii','好吃的','形'],['好き','すき','suki','喜欢','形'],
+['静か','しずか','shizuka','安静的','形'],['嫌い','きらい','kirai','讨厌','形'],
+['学校','がっこう','gakkō','学校','名'],['教室','きょうしつ','kyōshitsu','教室','名'],
+['先生','せんせい','sensei','老师','名'],['学生','がくせい','gakusei','学生','名'],
+['友達','ともだち','tomodachi','朋友','名'],['人','ひと','hito','人','名'],
+['男','おとこ','otoko','男人','名'],['女','おんな','onna','女人','名'],
+['子供','こども','kodomo','孩子','名'],['大人','おとな','otona','大人','名'],
+['本','ほん','hon','书','名'],['新聞','しんぶん','shinbun','报纸','名'],
+['手紙','てがみ','tegami','信','名'],['電話','でんわ','denwa','电话','名'],
+['テレビ','テレビ','terebi','电视','名'],['映画','えいが','eiga','电影','名'],
+['音楽','おんがく','ongaku','音乐','名'],['写真','しゃしん','shashin','照片','名'],
+['駅','えき','eki','车站','名'],['病院','びょういん','byōin','医院','名'],
+['銀行','ぎんこう','ginkō','银行','名'],['郵便局','ゆうびんきょく','yūbinkyoku','邮局','名'],
+['図書館','としょかん','toshokan','图书馆','名'],['食堂','しょくどう','shokudō','食堂','名'],
+['家','いえ','ie','家','名'],['部屋','へや','heya','房间','名'],
+['椅子','いす','isu','椅子','名'],['机','つくえ','tsukue','桌子','名'],
+['鍵','かぎ','kagi','钥匙','名'],['窓','まど','mado','窗户','名'],
+['門','もん','mon','门','名'],['庭','にわ','niwa','庭院','名'],
+['朝ご飯','あさごはん','asagohan','早饭','名'],['昼ご飯','ひるごはん','hirugohan','午饭','名'],
+['晩ご飯','ばんごはん','bangohan','晚饭','名'],['パン','パン','pan','面包','名'],
+['卵','たまご','tamago','鸡蛋','名'],['肉','にく','niku','肉','名'],
+['魚','さかな','sakana','鱼','名'],['野菜','やさい','yasai','蔬菜','名'],
+['果物','くだもの','kudamono','水果','名'],['水','みず','mizu','水','名'],
+['お茶','おちゃ','ocha','茶','名'],['牛乳','ぎゅうにゅう','gyūnyū','牛奶','名'],
+['春','はる','haru','春','名'],['夏','なつ','natsu','夏','名'],
+['秋','あき','aki','秋','名'],['冬','ふゆ','fuyu','冬','名'],
+['月曜日','げつようび','getsuyōbi','周一','名'],['火曜日','かようび','kayōbi','周二','名'],
+['水曜日','すいようび','suiyōbi','周三','名'],['木曜日','もくようび','mokuyōbi','周四','名'],
+['金曜日','きんようび','kinyōbi','周五','名'],['土曜日','どようび','doyōbi','周六','名'],
+['日曜日','にちようび','nichiyōbi','周日','名']
+],
+n4:[
+['預かる','あずかる','azukaru','保管','动'],['預ける','あずける','azukeru','寄存','动'],
+['集まる','あつまる','atsumaru','聚集','动'],['謝る','あやまる','ayamaru','道歉','动'],
+['洗う','あらう','arau','洗','动'],['表す','あらわす','arawasu','表示','动'],
+['現れる','あらわれる','arawareru','出现','动'],['怒る','おこる','okoru','生气','动'],
+['教える','おしえる','oshieru','教','动'],['落ちる','おちる','ochiru','掉落','动'],
+['踊る','おどる','odoru','跳舞','动'],['驚く','おどろく','odoroku','吃惊','动'],
+['下ろす','おろす','orosu','放下','动'],['変わる','かわる','kawaru','变化','动'],
+['乾く','かわく','kawaku','变干','动'],['消える','きえる','kieru','消失','动'],
+['聞こえる','きこえる','kikoeru','听得见','动'],['決まる','きまる','kimaru','决定','动'],
+['決める','きめる','kimeru','决定','动'],['困る','こまる','komaru','为难','动'],
+['転ぶ','ころぶ','korobu','摔倒','动'],['探す','さがす','sagasu','寻找','动'],
+['閉まる','しまる','shimaru','关闭','动'],['閉める','しめる','shimeru','关闭','动'],
+['知らせる','しらせる','shiraseru','通知','动'],['過ぎる','すぎる','sugiru','经过','动'],
+['進める','すすめる','susumeru','推进','动'],['捨てる','すてる','suteru','扔掉','动'],
+['誘う','さそう','sasō','邀请','动'],['確かめる','たしかめる','tashikameru','确认','动'],
+['助ける','たすける','tasukeru','帮助','动'],['訪ねる','たずねる','tazuneru','拜访','动'],
+['伝わる','つたわる','tsutawaru','传达','动'],['届ける','とどける','todokeru','送到','动'],
+['届く','とどく','todoku','到达','动'],['調べる','しらべる','shiraberu','调查','动'],
+['丁寧','ていねい','teinei','有礼貌','形'],['正しい','ただしい','tadashii','正确的','形'],
+['冷たい','つめたい','tsumetai','冷的','形'],['温かい','あたたかい','atatakai','温暖的','形'],
+['優しい','やさしい','yasashii','温柔的','形'],['厳しい','きびしい','kibishii','严格的','形'],
+['嬉しい','うれしい','ureshii','高兴的','形'],['悲しい','かなしい','kanashii','悲伤的','形'],
+['辛い','からい','karai','辣的','形'],['甘い','あまい','amai','甜的','形'],
+['苦い','にがい','nigai','苦的','形'],['約束','やくそく','yakusoku','约定','名'],
+['嘘','うそ','uso','谎言','名'],['秘密','ひみつ','himitsu','秘密','名'],
+['将来','しょうらい','shōrai','将来','名'],['最近','さいきん','saikin','最近','名'],
+['台風','たいふう','taifū','台风','名'],['地震','じしん','jishin','地震','名'],
+['出張','しゅっちょう','shucchō','出差','名']
+],
+n3:[
+['認める','みとめる','mitomeru','承认','动'],['批判','ひはん','hihan','批判','名'],
+['影響','えいきょう','eikyō','影响','名'],['経験','けいけん','keiken','经验','名'],
+['規模','きぼ','kibo','规模','名'],['関係','かんけい','kankei','关系','名'],
+['結果','けっか','kekka','结果','名'],['状況','じょうきょう','jōkyō','状况','名'],
+['成績','せいせき','seiseki','成绩','名'],['態度','たいど','taido','态度','名'],
+['能力','のうりょく','nōryoku','能力','名'],['範囲','はんい','han\'i','范围','名'],
+['評価','ひょうか','hyōka','评价','名'],['複雑','ふくざつ','fukuzatsu','复杂','形'],
+['普通','ふつう','futsū','普通','名'],['平均','へいきん','heikin','平均','名'],
+['目的','もくてき','mokuteki','目的','名'],['約束','やくそく','yakusoku','约定','名'],
+['優勝','ゆうしょう','yūshō','优胜','名'],['予定','よてい','yotei','预定','名'],
+['理解','りかい','rikai','理解','名'],['料理','りょうり','ryōri','料理','名'],
+['練習','れんしゅう','renshū','练习','名'],['連絡','れんらく','renraku','联络','名'],
+['忘れる','わすれる','wasureru','忘记','动'],['渡す','わたす','watasu','递交','动'],
+['渡る','わたる','wataru','渡过','动'],['割れる','われる','wareru','破碎','动']
+],
+n2:[
+['促す','うながす','unagasu','催促','动'],['遂げる','とげる','togeru','完成','动'],
+['拒む','こばむ','kobamu','拒绝','动'],['妨げる','さまたげる','samatageru','妨碍','动'],
+['覆す','くつがえす','kutsugaesu','推翻','动'],['覆う','おおう','ōu','覆盖','动'],
+['覆る','くつがえる','kutsugaeru','翻转','动'],['抱える','かかえる','kakaeru','抱/承担','动'],
+['構う','かまう','kamau','介意','动'],['叶う','かなう','kanau','实现','动'],
+['刻む','きざむ','kizamu','切碎/雕刻','动'],['繰り返す','くりかえす','kurikaesu','重复','动'],
+['加える','くわえる','kuwaeru','加上','动'],['加わる','くわわる','kuwawaru','加入','动'],
+['処理する','しょりする','shori suru','处理','动'],['連れる','つれる','tsureru','带领','动'],
+['닮る','にる','niru','相似','动'],['省く','はぶく','habuku','省略','动']
+],
+n1:[
+['攪拌','かくはん','kakuhan','搅拌','名'],['歪む','ゆがむ','yugamu','歪斜','动'],
+['歪める','ゆがめる','yugameru','使歪斜','动'],['歪み','ゆがみ','yugami','歪斜','名'],
+['企む','たくらむ','takuramu','策划','动'],['試みる','こころみる','kokoromiru','尝试','动'],
+['遮る','さえぎる','saegiru','遮挡','动'],['従う','したがう','shitagau','跟随','动'],
+['湿る','しめる','shimeru','潮湿','动'],['伴う','ともなう','tomonau','伴随','动'],
+['宿す','やどす','yadosu','怀有','动'],['廃る','すたる','sutaru','衰落','动'],
+['賄う','まかなう','makanau','供应/筹措','动'],['培う','つちかう','tsuchikau','培育','动']
+]
+};
+var jlptGrammar={
+n5:[
+{pattern:'～は～です',meaning:'～是～',example:'これは本です。',trans:'这是书。'},
+{pattern:'～を～ます',meaning:'做～',example:'ご飯を食べます。',trans:'吃饭。'},
+{pattern:'～に～ます',meaning:'去/在～',example:'学校に行きます。',trans:'去学校。'},
+{pattern:'～で～ます',meaning:'在～做',example:'図書館で勉強します。',trans:'在图书馆学习。'},
+{pattern:'～から～まで',meaning:'从～到～',example:'9時から5時まで働きます。',trans:'从9点工作到5点。'},
+{pattern:'～が好きです',meaning:'喜欢～',example:'猫が好きです。',trans:'喜欢猫。'},
+{pattern:'～たいです',meaning:'想～',example:'日本に行きたいです。',trans:'想去日本。'},
+{pattern:'～てください',meaning:'请～',example:'座ってください。',trans:'请坐。'},
+{pattern:'～ている',meaning:'正在～',example:'本を読んでいます。',trans:'正在读书。'},
+{pattern:'～た',meaning:'做了～',example:'昨日映画を見ました。',trans:'昨天看了电影。'}
+],
+n4:[
+{pattern:'～ことができる',meaning:'能够～',example:'日本語を話すことができます。',trans:'能说日语。'},
+{pattern:'～ようにする',meaning:'努力～',example:'毎日運動するようにしています。',trans:'努力每天运动。'},
+{pattern:'～ようになる',meaning:'变得能～',example:'日本語が話せるようになりました。',trans:'变得能说日语了。'},
+{pattern:'～つもりです',meaning:'打算～',example:'来年日本に行くつもりです。',trans:'打算明年去日本。'},
+{pattern:'～ことにする',meaning:'决定～',example:'毎日勉強することにしました。',trans:'决定每天学习。'},
+{pattern:'～ことがある',meaning:'有时～',example:'朝ご飯を食べないことがあります。',trans:'有时不吃早饭。'},
+{pattern:'～なければならない',meaning:'必须～',example:'早く起きなければなりません。',trans:'必须早起。'},
+{pattern:'～はずだ',meaning:'应该～',example:'彼は来るはずです。',trans:'他应该会来。'},
+{pattern:'～そうだ（样态）',meaning:'看起来～',example:'この料理は美味しそうです。',trans:'这道菜看起来很好吃。'},
+{pattern:'～そうだ（传闻）',meaning:'听说～',example:'明日は雨だそうです。',trans:'听说明天会下雨。'}
+],
+n3:[
+{pattern:'～たとたん',meaning:'刚～就～',example:'外に出たとたん、雨が降り出しました。',trans:'刚出门就下起雨了。'},
+{pattern:'～とおりに',meaning:'按照～',example:'言ったとおりにしてください。',trans:'请按照说的做。'},
+{pattern:'～うちに',meaning:'在～期间',example:'温かいうちに食べてください。',trans:'请趁热吃。'},
+{pattern:'～わけだ',meaning:'难怪～',example:'彼は日本に10年住んでいた。日本語が上手なわけだ。',trans:'他在日本住了10年，难怪日语很好。'},
+{pattern:'～はずがない',meaning:'不可能～',example:'そんなことがあるはずがない。',trans:'不可能有那种事。'},
+{pattern:'～かわりに',meaning:'代替～',example:'私が行きますかわりに、彼が来ました。',trans:'我替他去了。'},
+{pattern:'～っぽい',meaning:'像～',example:'彼女は子供っぽい。',trans:'她像孩子一样。'},
+{pattern:'～気味',meaning:'有点～',example:'最近、風邪気味です。',trans:'最近有点感冒。'},
+{pattern:'～げ',meaning:'～的样子',example:'彼は悲しそうな顔をしています。',trans:'他看起来很悲伤。'},
+{pattern:'～きり',meaning:'只～',example:'一度だけ会ったきりです。',trans:'只见过一次。'}
+],
+n2:[
+{pattern:'～にすぎない',meaning:'不过是～',example:'これは一例にすぎません。',trans:'这不过是一个例子。'},
+{pattern:'～にほかならない',meaning:'不外乎～',example:'成功は努力の結果にほかならない。',trans:'成功不外乎是努力的结果。'},
+{pattern:'～をもとに',meaning:'以～为基础',example:'この小説は実話をもとにしています。',trans:'这部小说是基于真实故事的。'},
+{pattern:'～をきっかけに',meaning:'以～为契机',example:'留学をきっかけに、日本語を勉強し始めました。',trans:'以留学为契机开始学习日语。'},
+{pattern:'～を中心に',meaning:'以～为中心',example:'東京を中心に活動しています。',trans:'以东京为中心活动。'},
+{pattern:'～を問わず',meaning:'不论～',example:'年齢を問わず参加できます。',trans:'不论年龄都可以参加。'},
+{pattern:'～をもって',meaning:'以～',example:'本日をもって閉店します。',trans:'于今日闭店。'},
+{pattern:'～と同時に',meaning:'同时～',example:'卒業と同時に就職しました。',trans:'毕业的同时就职了。'},
+{pattern:'～反面',meaning:'另一方面',example:'この薬は効果がある反面、副作用もあります。',trans:'这个药有效果，但另一方面也有副作用。'},
+{pattern:'～かたわら',meaning:'一边～一边～',example:'大学で教えるかたわら、研究もしています。',trans:'一边在大学教书，一边做研究。'}
+],
+n1:[
+{pattern:'～をものともせず',meaning:'不顾～',example:'困難をものともせず、研究を続けた。',trans:'不顾困难继续研究。'},
+{pattern:'～たりとも',meaning:'即使～也',example:'一日たりとも休めない。',trans:'一天也不能休息。'},
+{pattern:'～んばかりに',meaning:'几乎要～',example:'泣きんばかりに頼んだ。',trans:'几乎要哭出来地请求。'},
+{pattern:'～まじき',meaning:'不该～',example:'学生にあるまじき行為だ。',trans:'是学生不该有的行为。'},
+{pattern:'～ともなく',meaning:'无意中～',example:'テレビを見ともなく見ていた。',trans:'无意中看着电视。'},
+{pattern:'～とあれば',meaning:'如果是～',example:'あなたのためとあれば、何でもします。',trans:'如果是为了你，什么都做。'},
+{pattern:'～ともなると',meaning:'到了～阶段',example:'社長ともなると、責任が重い。',trans:'到了社长阶段，责任就重了。'},
+{pattern:'～をよそに',meaning:'不顾～',example:'親の心配をよそに、彼は旅に出た。',trans:'不顾父母的担心出去旅行了。'},
+{pattern:'～なくして',meaning:'没有～',example:'努力なくして成功はない。',trans:'没有努力就没有成功。'},
+{pattern:'～んがため',meaning:'为了～',example:'勝たんがため、必死に練習した。',trans:'为了胜利拼命练习。'}
+]
+};
+var readingTips={
+n5:['掌握基础句型：～は～です、～を～ます','理解助词的基本用法：は、が、を、に、で','能够阅读简短的通知和指示','理解简单的日常对话'],
+n4:['理解复合句和从句','掌握条件表达：たら、なら、ば、と','能够阅读简单的文章和故事','理解日常场景中的说明文'],
+n3:['理解报纸标题和简单报道','掌握书面语和口语的区别','能够阅读一般性话题的文章','理解作者的意图和观点'],
+n2:['能够阅读报纸和杂志','理解复杂的逻辑关系','掌握抽象表达和惯用句','能够理解技术性文章'],
+n1:['能够阅读各种主题的文章','理解抽象和哲学性内容','掌握古典日语表达','能够理解文学作品']
+};
+
+// ===== State =====
+var currentKanaTab='hiragana';
+var currentVocabTab='numbers';
+var currentPhraseTab='basic';
+var currentDialogTab='restaurant';
+var currentFlashcardSet='basic';
+var currentQuizSet='basic';
+var flashcardIndex=0;
+var quizIndex=0;
+var quizScore=0;
+var quizTotal=10;
+var quizAnswered=false;
+var learnedKana={};
+var learnedVocab={};
+var streakDays=0;
+
+// ===== Init =====
+function init(){
+loadProgress();
+renderKana('hiragana');
+renderGreetings();
+renderVocab('numbers');
+renderPhrases('basic');
+renderDialog('restaurant');
+renderGrammarBasic();
+renderFlashcard();
+renderQuiz();
+renderJlptContent('n5','vocab');
+renderJlptContent('n4','vocab');
+renderJlptContent('n3','vocab');
+renderJlptContent('n2','vocab');
+renderJlptContent('n1','vocab');
+updateStats();
+var saved=localStorage.getItem('jp-theme');
+if(saved==='dark'){document.documentElement.classList.add('dark');document.getElementById('themeIcon').textContent='☀️';document.getElementById('themeText').textContent='白天模式';}
+}
+function loadProgress(){try{var k=localStorage.getItem('jp-learned-kana');if(k)learnedKana=JSON.parse(k);var v=localStorage.getItem('jp-learned-vocab');if(v)learnedVocab=JSON.parse(v);var s=localStorage.getItem('jp-streak');if(s)streakDays=parseInt(s);}catch(e){}}
+function saveProgress(){try{localStorage.setItem('jp-learned-kana',JSON.stringify(learnedKana));localStorage.setItem('jp-learned-vocab',JSON.stringify(learnedVocab));localStorage.setItem('jp-streak',streakDays.toString());}catch(e){}}
+function updateStats(){document.getElementById('stat-kana').textContent=Object.keys(learnedKana).length;document.getElementById('stat-vocab').textContent=Object.keys(learnedVocab).length;document.getElementById('stat-streak').textContent=streakDays;}
+
+// ===== Navigation =====
+function showSection(s){var all=document.querySelectorAll('.section');for(var i=0;i<all.length;i++)all[i].classList.remove('active');document.getElementById('section-'+s).classList.add('active');var nav=document.querySelectorAll('.nav-item');for(var i=0;i<nav.length;i++)nav[i].classList.remove('active');var a=document.querySelector('.nav-item[data-section="'+s+'"]');if(a)a.classList.add('active');if(window.innerWidth<=768)closeSidebar();window.scrollTo(0,0);}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('show');}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
+function toggleTheme(){var h=document.documentElement;h.classList.toggle('dark');var d=h.classList.contains('dark');document.getElementById('themeIcon').textContent=d?'☀️':'🌙';document.getElementById('themeText').textContent=d?'白天模式':'暗黑模式';localStorage.setItem('jp-theme',d?'dark':'light');}
+function speak(t,l){try{if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang=l||'ja';u.rate=0.85;window.speechSynthesis.speak(u);}catch(e){}}
+
+// ===== Kana =====
+function switchKanaTab(t){currentKanaTab=t;var tabs=document.querySelectorAll('#section-kana .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');renderKana(t);}
+function renderKana(tab){var data;switch(tab){case'hiragana':data=hiragana;break;case'katakana':data=katakana;break;case'dakuten':data=dakuten;break;case'combo':data=comboKana;break;default:data=hiragana;}var h='<div class="kana-table">';for(var i=0;i<data.length;i++){h+='<div class="kana-cell" onclick="learnKana(\''+data[i][0]+'\',\''+data[i][1]+'\)"><div class="kana-char">'+data[i][0]+'</div><div class="kana-romaji">'+data[i][1]+'</div></div>';}h+='</div>';document.getElementById('kanaContent').innerHTML=h;}
+function learnKana(c,r){learnedKana[c]=true;saveProgress();updateStats();speak(c,'ja');}
+
+// ===== Greetings =====
+function renderGreetings(){var h='';for(var i=0;i<greetingsData.length;i++){var g=greetingsData[i];h+='<div class="card"><div class="card-title" style="display:flex;align-items:center;gap:8px">'+g.jp+'<button class="speak-btn" onclick="speak(\''+g.jp+'\',\'ja\')">🔊</button></div><div class="card-desc">'+g.cn+'</div><div style="margin-top:8px;font-size:0.8125rem;color:var(--text-muted)">'+g.roma+'</div></div>';}document.getElementById('greetingsContent').innerHTML=h;}
+
+// ===== Vocab =====
+function switchVocabTab(t){currentVocabTab=t;var tabs=document.querySelectorAll('#section-vocab-basic .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');renderVocab(t);}
+function renderVocab(tab){var data=vocabData[tab]||[];var h='';for(var i=0;i<data.length;i++){var w=data[i];h+='<div class="word-item" onclick="learnVocab(\''+w[0]+'\')"><span class="word-jp">'+w[0]+'</span><span class="word-reading">'+w[1]+'</span><span class="word-meaning">'+w[3]+'</span><span class="word-pos">'+w[4]+'</span></div>';}document.getElementById('vocabList').innerHTML=h;}
+function filterVocab(){var q=document.getElementById('vocabSearch').value.toLowerCase();var items=document.querySelectorAll('.word-item');for(var i=0;i<items.length;i++){items[i].style.display=items[i].textContent.toLowerCase().includes(q)?'':'none';}}
+function learnVocab(w){learnedVocab[w]=true;saveProgress();updateStats();speak(w,'ja');}
+
+// ===== Phrases =====
+function switchPhraseTab(t){currentPhraseTab=t;var tabs=document.querySelectorAll('#section-phrases .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');renderPhrases(t);}
+function renderPhrases(tab){var data=phraseData[tab]||[];var h='';for(var i=0;i<data.length;i++){var p=data[i];h+='<div class="grammar-card"><div class="grammar-pattern" style="display:flex;align-items:center;gap:8px">'+p[0]+'<button class="speak-btn" onclick="speak(\''+p[0].replace(/'/g,"\\'")+'\',\'ja\')">🔊</button></div><div class="grammar-meaning">'+p[2]+'</div><div class="grammar-example"><div class="grammar-example-jp">'+p[1]+'</div><div class="grammar-example-cn">'+p[3]+'</div></div></div>';}document.getElementById('phraseContent').innerHTML=h;}
+
+// ===== Dialog =====
+function switchDialogTab(t){currentDialogTab=t;var tabs=document.querySelectorAll('#section-dialogs .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');renderDialog(t);}
+function renderDialog(tab){var d=dialogData[tab];if(!d)return;var h='<div class="dialog-box"><div class="dialog-title">📍 '+d.title+'</div>';for(var i=0;i<d.lines.length;i++){var l=d.lines[i];h+='<div class="dialog-line"><span class="dialog-speaker">'+l.speaker+'</span><div class="dialog-text"><div class="dialog-jp" style="display:flex;align-items:center;gap:6px">'+l.jp+'<button class="speak-btn" onclick="speak(\''+l.jp.replace(/'/g,"\\'")+'\',\'ja\')" style="width:24px;height:24px;font-size:12px">🔊</button></div><div class="dialog-cn">'+l.cn+'</div></div></div>';}h+='</div>';document.getElementById('dialogContent').innerHTML=h;}
+
+// ===== Grammar Basic =====
+function renderGrammarBasic(){var h='';for(var i=0;i<grammarBasicData.length;i++){var g=grammarBasicData[i];h+='<div class="grammar-card"><div class="grammar-pattern">'+g.pattern+'</div><div class="grammar-meaning">'+g.meaning+'</div><div class="grammar-example"><div class="grammar-example-jp">'+g.example+'</div><div class="grammar-example-cn">'+g.trans+'</div></div></div>';}document.getElementById('grammarBasicContent').innerHTML=h;}
+
+// ===== Flashcard =====
+function switchFlashcardSet(s){currentFlashcardSet=s;var tabs=document.querySelectorAll('#section-flashcard .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');flashcardIndex=0;renderFlashcard();}
+function getFlashcardData(){switch(currentFlashcardSet){case'basic':return vocabData.numbers.concat(vocabData.time);case'n5':return jlptVocab.n5;case'n4':return jlptVocab.n4;default:return vocabData.numbers;}}
+function renderFlashcard(){var data=getFlashcardData();if(!data.length)return;var c=data[flashcardIndex%data.length];document.getElementById('fc-front-word').textContent=c[0];document.getElementById('fc-front-reading').textContent=c[1];document.getElementById('fc-back-meaning').textContent=c[3];document.getElementById('fc-back-example').textContent=c[2];document.getElementById('fc-counter').textContent=(flashcardIndex+1)+' / '+data.length;document.getElementById('flashcard').classList.remove('flipped');}
+function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
+function nextCard(){var data=getFlashcardData();flashcardIndex=(flashcardIndex+1)%data.length;renderFlashcard();}
+function prevCard(){var data=getFlashcardData();flashcardIndex=(flashcardIndex-1+data.length)%data.length;renderFlashcard();}
+
+// ===== Quiz =====
+function switchQuizSet(s){currentQuizSet=s;var tabs=document.querySelectorAll('#section-quiz .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');quizIndex=0;quizScore=0;quizAnswered=false;renderQuiz();}
+function getQuizData(){switch(currentQuizSet){case'basic':return vocabData.numbers.concat(vocabData.time);case'n5':return jlptVocab.n5;default:return vocabData.numbers;}}
+function renderQuiz(){var data=getQuizData();if(!data.length)return;var shuffled=data.slice().sort(function(){return 0.5-Math.random();});var q=shuffled[quizIndex%shuffled.length];var opts=[q[3]];var wrong=[];for(var i=0;i<data.length&&wrong.length<3;i++){if(data[i][3]!==q[3]&&wrong.indexOf(data[i][3])===-1)wrong.push(data[i][3]);}opts=opts.concat(wrong).sort(function(){return 0.5-Math.random();});document.getElementById('quiz-word').textContent=q[0];document.getElementById('quiz-reading').textContent=q[1];document.getElementById('quiz-current').textContent=quizIndex+1;document.getElementById('quiz-total').textContent=quizTotal;document.getElementById('quiz-progress').style.width=((quizIndex+1)/quizTotal*100)+'%';var h='';for(var i=0;i<opts.length;i++){h+='<button class="quiz-option" onclick="answerQuiz(this,'+(opts[i]===q[3]?1:0)+')">'+opts[i]+'</button>';}document.getElementById('quiz-options').innerHTML=h;document.getElementById('quiz-next').style.display='none';quizAnswered=false;}
+function answerQuiz(btn,correct){if(quizAnswered)return;quizAnswered=true;var opts=document.querySelectorAll('.quiz-option');for(var i=0;i<opts.length;i++)opts[i].disabled=true;if(correct){btn.classList.add('correct');quizScore++;}else{btn.classList.add('wrong');for(var i=0;i<opts.length;i++){if(opts[i].textContent===getQuizData()[quizIndex%getQuizData().length][3])opts[i].classList.add('correct');}}document.getElementById('quiz-next').style.display='inline-flex';}
+function nextQuizQuestion(){quizIndex++;if(quizIndex>=quizTotal){alert('测试完成！正确率：'+Math.round(quizScore/quizTotal*100)+'%');quizIndex=0;quizScore=0;}renderQuiz();}
+
+// ===== JLPT Content =====
+function switchJlptTab(level,tab){var tabs=document.querySelectorAll('#section-jlpt-'+level+' .jlpt-tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');event.target.classList.add('active');renderJlptContent(level,tab);}
+function renderJlptContent(level,tab){var c=document.getElementById('jlpt-'+level+'-content');if(!c)return;var h='';if(tab==='vocab'){var vocab=jlptVocab[level]||[];h+='<div class="word-list">';for(var i=0;i<vocab.length;i++){var w=vocab[i];if(w[0]==='❦')continue;h+='<div class="word-item"><span class="word-jp">'+w[0]+'</span><span class="word-reading">'+w[1]+'</span><span class="word-meaning">'+w[3]+'</span><span class="word-pos">'+w[4]+'</span></div>';}h+='</div>';}else if(tab==='grammar'){var grammar=jlptGrammar[level]||[];for(var i=0;i<grammar.length;i++){var g=grammar[i];h+='<div class="grammar-card"><div class="grammar-pattern">'+g.pattern+'</div><div class="grammar-meaning">'+g.meaning+'</div><div class="grammar-example"><div class="grammar-example-jp">'+g.example+'</div><div class="grammar-example-cn">'+g.trans+'</div></div></div>';}}else if(tab==='reading'){var tips=readingTips[level]||[];h+='<div class="card"><h3>阅读技巧</h3><ul style="margin-top:12px;padding-left:20px">';for(var i=0;i<tips.length;i++){h+='<li style="margin-bottom:8px;color:var(--text-secondary)">'+tips[i]+'</li>';}h+='</ul></div>';}c.innerHTML=h;}
+
+init();
+</script>
+</body>
+</html>
