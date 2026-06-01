@@ -1039,11 +1039,10 @@ function toggleSidebar(){document.getElementById('sidebar').classList.toggle('op
 function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
 function toggleTheme(){var h=document.documentElement;h.classList.toggle('dark');var d=h.classList.contains('dark');document.getElementById('themeIcon').textContent=d?'☀️':'🌙';document.getElementById('themeText').textContent=d?'白天模式':'暗黑模式';localStorage.setItem('jp-theme',d?'dark':'light');}
 var _audioUnlocked=false;
-var _currentAudio=null;
-function _unlockAudio(){if(_audioUnlocked)return;_audioUnlocked=true;try{var a=new Audio('https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana=%E3%81%82&kanji=%E3%81%82');a.volume=0;a.play().then(function(){a.pause();a.src='';}).catch(function(){});}catch(e){}}
-document.addEventListener('click',_unlockAudio,{once:true});
-document.addEventListener('touchstart',_unlockAudio,{once:true});
-function speak(text){try{_unlockAudio();if(_currentAudio){_currentAudio.pause();_currentAudio.src='';}_currentAudio=new Audio();_currentAudio.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encodeURIComponent(text)+'&kanji='+encodeURIComponent(text);_currentAudio.play().catch(function(){});}catch(e){}}
+var _ttsAudio=null;
+function _ensureAudio(){if(!_ttsAudio){_ttsAudio=new Audio();_ttsAudio.preload='auto';document.body.appendChild(_ttsAudio);}return _ttsAudio;}
+function speak(text){try{var a=_ensureAudio();a.pause();a.src='https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(text)+'&le=jap&type=1';var p=a.play();if(p)p.catch(function(){a.src='https://assets.languagepod101.com/dictionary/japanese/audiomp3.php?kana='+encodeURIComponent(text)+'&kanji='+encodeURIComponent(text);a.play().catch(function(){});});}catch(e){try{_ttsAudio.src='https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(text)+'&le=jap&type=1';_ttsAudio.play().catch(function(){});}catch(e2){}}}
+document.addEventListener('click',function(){if(!_audioUnlocked){_audioUnlocked=true;var a=_ensureAudio();a.volume=0;a.src='https://dict.youdao.com/dictvoice?audio=%E3%81%82&le=jap&type=1';a.play().then(function(){a.pause();a.volume=1;}).catch(function(){});}},{once:true});
 
 // ===== Kana =====
 function switchKanaTab(t){currentKanaTab=t;var tabs=document.querySelectorAll('#section-kana .tab');for(var i=0;i<tabs.length;i++)tabs[i].classList.remove('active');this.classList.add('active');renderKana(t);}
