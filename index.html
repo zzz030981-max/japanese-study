@@ -1130,8 +1130,6 @@ var quizAnswered=false;
 var learnedKana={};
 var learnedVocab={};
 var streakDays=0;
-function savePosition(s,scroll){try{localStorage.setItem('jp-pos-s',s);localStorage.setItem('jp-pos-y',scroll);}catch(e){}}
-function getLastPos(){try{return{s:localStorage.getItem('jp-pos-s')||'home',y:parseInt(localStorage.getItem('jp-pos-y')||'0')};}catch(e){return{s:'home',y:0};}}
 
 // ===== Position Memory =====
 function savePosition(section,scrollTop){try{localStorage.setItem('jp-last-section',section);localStorage.setItem('jp-last-scroll',scrollTop.toString());}catch(e){}}
