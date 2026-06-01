@@ -172,15 +172,55 @@ h3{font-size:1.25rem;font-weight:600;line-height:1.4;margin-bottom:8px}
 .sidebar.open{transform:translateX(0)}
 .mobile-menu-btn{display:flex}
 .main{margin-left:0}
-.content{padding:60px 20px 24px}
-h1{font-size:1.75rem}
-h2{font-size:1.375rem}
+.content{padding:60px 16px 24px}
+h1{font-size:1.5rem}
+h2{font-size:1.25rem}
+.subtitle{font-size:1rem;margin-bottom:20px}
 .card-grid{grid-template-columns:1fr}
-.kana-table{grid-template-columns:repeat(5,1fr);gap:6px}
-.kana-char{font-size:1.25rem}
-.stats-grid{grid-template-columns:repeat(2,1fr)}
+.kana-table{grid-template-columns:repeat(5,1fr);gap:4px}
+.kana-cell{padding:8px 4px}
+.kana-char{font-size:1.1rem}
+.kana-romaji{font-size:0.65rem}
+.stats-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+.stat-card{padding:12px}
+.stat-value{font-size:1.5rem}
+.flashcard{height:220px}
+.flashcard-word{font-size:1.8rem}
+.flashcard-controls{flex-wrap:wrap;gap:8px}
+.flashcard-controls .btn{flex:1;min-width:80px;font-size:13px;padding:8px 10px}
+.tabs{gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{padding:8px 12px;font-size:13px;white-space:nowrap}
+.quiz-option{padding:12px 14px;font-size:14px}
+.level-card{padding:16px}
+.level-icon{font-size:1.5rem;margin-bottom:8px}
+.level-title{font-size:1rem}
+.level-stats{flex-wrap:wrap;gap:8px}
+.word-item{padding:10px 12px;flex-wrap:wrap}
+.word-jp{min-width:80px;font-size:1rem}
+.word-reading{min-width:60px;font-size:0.8rem}
+.word-meaning{font-size:0.85rem}
+.word-pos{font-size:0.7rem}
+.dialog-line{flex-direction:column;gap:4px}
+.dialog-speaker{min-width:auto}
+.grammar-card{padding:16px}
+.grammar-pattern{font-size:1rem}
+.search-box{padding:6px 10px}
+.speak-btn{width:28px;height:28px;font-size:14px}
+.back-btn{font-size:13px;margin-bottom:12px}
+.section-header{margin-bottom:20px;padding-bottom:16px}
+.jlpt-nav{gap:6px}
+.jlpt-tab{padding:6px 12px;font-size:13px}
+}
+@media(max-width:480px){
+.kana-table{gap:3px}
+.kana-cell{padding:6px 2px}
+.kana-char{font-size:1rem}
+.kana-romaji{font-size:0.6rem}
+h1{font-size:1.3rem}
+.content{padding:56px 12px 20px}
 .flashcard{height:200px}
-.flashcard-word{font-size:2rem}
+.flashcard-word{font-size:1.5rem}
+.flashcard-controls .btn{font-size:12px;padding:6px 8px}
 }
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
